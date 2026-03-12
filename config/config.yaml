@@ -4,3 +4,4 @@ data_ingestion:
   source_URL: https://earthquake.usgs.gov/fdsnws/event/1/query
   earthquake_bucket_name: earthquake-raw
   minio_endpoint: host.docker.internal:9000
+  # minio_endpoint: localhost:9000

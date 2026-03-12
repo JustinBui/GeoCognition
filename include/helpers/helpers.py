@@ -4,15 +4,17 @@ import yaml
 from box import ConfigBox
 from pathlib import Path
 from typing import Any
+from include.constants import CONFIG_FILE_PATH
 from include.logging import logger
 from minio import Minio
 from minio.error import S3Error
 
-def read_yaml(path_to_yaml: Path) -> ConfigBox:
+def read_yaml(path_to_yaml: Path, verbose=True) -> ConfigBox:
     """reads yaml file and returns
 
     Args:
         path_to_yaml (str): path like input
+        verbose (bool, optional): whether to log the loading process. Defaults to True.
 
     Raises:
         ValueError: if yaml file is empty
@@ -24,7 +26,8 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     try:
         with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logger.info(f"yaml file: {path_to_yaml} loaded successfully")
+            if verbose:
+                logger.info(f"yaml file: {path_to_yaml} loaded successfully")
             return ConfigBox(content)
     except BoxValueError:
         raise ValueError("yaml file is empty")
@@ -46,31 +49,26 @@ def create_directories(path_to_directories: list, verbose=True):
 
 # --------------------- MINIO HELPER FUNCIONS --------------------
 
-# def get_minio_client() -> Minio:
-#     """
-#     Create and return a MinIO client using environment variables.
-#     """
-#     endpoint = "localhost:9000"
-#     access_key = os.getenv("MINIO_ACCESS_KEY")
-#     secret_key = os.getenv("MINIO_SECRET_KEY")
-#     secure = os.getenv("MINIO_SECURE", "false").lower() == "true"
+def get_minio_client() -> Minio:
+    endpoint = read_yaml(CONFIG_FILE_PATH).data_ingestion.minio_endpoint
+    access_key = os.getenv("MINIO_ACCESS_KEY", "minio")
+    secret_key = os.getenv("MINIO_SECRET_KEY", "minio123")
 
-#     client = Minio(
-#         endpoint,
-#         access_key=access_key,
-#         secret_key=secret_key,
-#         secure=secure,
-#     )
-#     return client
+    return Minio(
+        endpoint,
+        access_key=access_key,
+        secret_key=secret_key,
+        secure=False,
+    )
 
 
-# def ensure_bucket_exists(client: Minio, bucket_name: str) -> None:
-#     """
-#     Create bucket if it does not already exist.
-#     """
-#     found = client.bucket_exists(bucket_name)
-#     if not found:
-#         client.make_bucket(bucket_name)
+def ensure_bucket_exists(client: Minio, bucket_name: str) -> None:
+    """
+    Create bucket if it does not already exist.
+    """
+    found = client.bucket_exists(bucket_name)
+    if not found:
+        client.make_bucket(bucket_name)
 
 
 # def upload_file_to_minio(

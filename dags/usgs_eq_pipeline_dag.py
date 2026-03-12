@@ -11,31 +11,48 @@ from airflow.providers.standard.operators.python import PythonOperator
 from airflow.providers.http.operators.http import HttpOperator
 from minio import Minio
 
-from include.helpers import read_yaml
+from include.helpers import read_yaml, get_minio_client
 from include.constants import *
 
 USGS_URL = read_yaml(CONFIG_FILE_PATH).data_ingestion.source_URL
 BUCKET_NAME = read_yaml(CONFIG_FILE_PATH).data_ingestion.earthquake_bucket_name
 
+def validate_usgs_eq_payload(**context) -> str:
+    '''
+    Validates the raw JSON payload from the USGS API. Raises ValueError if validation fails.
+    Returns the raw JSON text if validation succeeds, which is then pushed to XCom for downstream tasks.
+    '''
+    raw_json_text = context["ti"].xcom_pull(task_ids="fetch_usgs_events")  # Pulling the raw JSON text from the previous task's XCom
+    if not raw_json_text:
+        raise ValueError("USGS payload is empty")
 
-def get_minio_client() -> Minio:
-    endpoint = read_yaml(CONFIG_FILE_PATH).data_ingestion.minio_endpoint
-    access_key = os.getenv("MINIO_ACCESS_KEY", "minio")
-    secret_key = os.getenv("MINIO_SECRET_KEY", "minio123")
+    try:
+        payload = json.loads(raw_json_text)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"USGS payload is not valid JSON: {e}") from e
 
-    return Minio(
-        endpoint,
-        access_key=access_key,
-        secret_key=secret_key,
-        secure=False,
-    )
+    required_keys = ["type", "metadata", "features"]
+    missing = [k for k in required_keys if k not in payload]
+    if missing:
+        raise ValueError(f"USGS payload missing required keys: {missing}")
 
+    if payload.get("type") != "FeatureCollection":
+        raise ValueError("USGS payload type is not 'FeatureCollection'")
 
-def upload_raw_json_to_minio(**context) -> None:
+    if not isinstance(payload.get("features"), list):
+        raise ValueError("USGS payload 'features' is not a list")
+
+    # Return validated raw JSON so downstream pulls validated content
+    return raw_json_text
+
+def upload_raw_eq_json_to_minio(**context) -> None:
+    '''
+    Uploads the validated raw JSON payload to MinIO.
+    '''
     ds = context["ds"]  # e.g. 2025-01-01
     start_dt = pendulum.parse(ds, tz="UTC")
 
-    raw_json_text = context["ti"].xcom_pull(task_ids="fetch_usgs_events") # Pulling the raw JSON text from the previous task's XCom
+    raw_json_text = context["ti"].xcom_pull(task_ids="validate_usgs_eq_payload") # Pulling the raw JSON text from the previous task's XCom
     if not raw_json_text:
         raise ValueError("Empty response from USGS API")
 
@@ -72,7 +89,7 @@ with DAG(
         data={
             "format": "geojson",
             "starttime": "{{ data_interval_start.strftime('%Y-%m-%dT%H:%M:%S') }}",
-            "endtime": "{{ data_interval_end.strftime('%Y-%m-%dT%H:%M:%S') }}",
+            "endtime": "{{ (data_interval_start + macros.timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S') }}",
             "minmagnitude": "2.5",
             "orderby": "time-asc",
             "limit": "20000",
@@ -82,10 +99,15 @@ with DAG(
         log_response=False,
     )
 
+    validate_payload = PythonOperator(
+        task_id="validate_usgs_eq_payload",
+        python_callable=validate_usgs_eq_payload,
+    )
+    
     upload_to_minio = PythonOperator(
-        task_id="upload_raw_json_to_minio",
-        python_callable=upload_raw_json_to_minio,
+        task_id="upload_raw_eq_json_to_minio",
+        python_callable=upload_raw_eq_json_to_minio,
     )
 
-    fetch_usgs_events >> upload_to_minio
+    fetch_usgs_events >> validate_payload >> upload_to_minio
 # ...existing code...
