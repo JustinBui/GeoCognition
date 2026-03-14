@@ -5,9 +5,9 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 from include.constants import CONFIG_FILE_PATH
-from include.logging import logger
 from minio import Minio
 from minio.error import S3Error
+import logging
 
 def read_yaml(path_to_yaml: Path, verbose=True) -> ConfigBox:
     """reads yaml file and returns
@@ -27,14 +27,14 @@ def read_yaml(path_to_yaml: Path, verbose=True) -> ConfigBox:
         with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
             if verbose:
-                logger.info(f"yaml file: {path_to_yaml} loaded successfully")
+                logging.info(f"yaml file: {path_to_yaml} loaded successfully")
             return ConfigBox(content)
     except BoxValueError:
         raise ValueError("yaml file is empty")
     except Exception as e:
         raise e
     
-def create_directories(path_to_directories: list, verbose=True):
+def create_directories(path_to_directories: list, verbose=True) -> None:
     """create list of directories
 
     Args:
@@ -44,8 +44,14 @@ def create_directories(path_to_directories: list, verbose=True):
     for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
         if verbose:
-            logger.info(f"created directory at: {path}")
+            logging.info(f"created directory at: {path}")
 
+
+def debug_context(**context) -> None:
+    logging.info("Context keys: %s", sorted(context.keys()))
+    logging.info("ds=%s", context.get("ds"))
+    logging.info("data_interval_start=%s", context.get("data_interval_start"))
+    logging.info("data_interval_end=%s", context.get("data_interval_end"))
 
 # --------------------- MINIO HELPER FUNCIONS --------------------
 

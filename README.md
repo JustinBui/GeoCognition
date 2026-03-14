@@ -54,3 +54,11 @@ Restarting Astro:
 astro dev stop
 astro dev start
 ```
+
+Hard restarting Astro (Deleting all metaata)
+
+```
+astro dev stop
+astro dev kill
+astro dev start
+```
