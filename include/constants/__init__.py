@@ -11,5 +11,5 @@ EQ_COLUMNS = ['type', 'id', 'properties.mag', 'properties.place', 'properties.ti
             'properties.code', 'properties.ids', 'properties.sources',
             'properties.types', 'properties.nst', 'properties.dmin',
             'properties.rms', 'properties.gap', 'properties.magType',
-            'properties.type', 'properties.title', 'geometry.type', 'longitude',
+            'properties.type', 'properties.title', 'longitude',
             'latitude', 'depth_km']

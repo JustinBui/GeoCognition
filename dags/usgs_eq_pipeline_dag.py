@@ -33,22 +33,27 @@ def validate_eq_payload(**context) -> str:
     '''
     raw_json_text = context["ti"].xcom_pull(task_ids="fetch_usgs_events")  # Pulling the raw JSON text from the previous task's XCom
     
+    # Check whether JSON has content
     if not raw_json_text:
         raise ValueError("USGS payload is empty")
     
+    # Loading JSON if content exists, and validating expected structure
     try:
         payload = json.loads(raw_json_text)
     except json.JSONDecodeError as e:
         raise ValueError(f"USGS payload is not valid JSON: {e}") from e
 
+    # Validating expected keys and types in the payload
     required_keys = ["type", "metadata", "features"]
     missing = [k for k in required_keys if k not in payload]
     if missing:
         raise ValueError(f"USGS payload missing required keys: {missing}")
 
+    # Basic validation of expected types for keys
     if payload.get("type") != "FeatureCollection":
         raise ValueError("USGS payload type is not 'FeatureCollection'")
 
+    # Validate that 'features' is a list (even if empty), as expected from USGS GeoJSON
     if not isinstance(payload.get("features"), list):
         raise ValueError("USGS payload 'features' is not a list")
 
@@ -84,6 +89,8 @@ def upload_raw_eq_json_to_minio(**context) -> None:
         content_type="application/json",
     )
 
+    logger.info(f"Uploaded raw USGS JSON to MinIO at {RAW_BUCKET_NAME}/{object_name}")
+
 def to_list(v) -> list:
     """
     Convert a JSON string to a list, or return the value as-is if it's not a string.
@@ -103,7 +110,6 @@ def flatten_eq_json_to_df(**context) -> pd.DataFrame:
     start_dt = pendulum.parse(ds, tz="UTC")
 
     raw_object_path = f"year={start_dt:%Y}/month={start_dt:%m}/day={start_dt:%d}/raw.json"
-    parquet_object_path = f"year={start_dt:%Y}/month={start_dt:%m}/day={start_dt:%d}/flattened.parquet"
     
     client = get_minio_client()
     if not client.bucket_exists(CURATED_BUCKET_NAME):
@@ -144,6 +150,8 @@ def flatten_eq_json_to_df(**context) -> pd.DataFrame:
             df_features[col] = pd.NA
     df_features = df_features[EQ_COLUMNS]
     
+    logger.info(f"Flattened USGS JSON to DataFrame with {len(df_features)} rows and columns: {df_features.columns.tolist()}")
+    
     return df_features
 
 def upload_flattened_eq_to_minio(**context) -> None:
@@ -171,46 +179,47 @@ def upload_flattened_eq_to_minio(**context) -> None:
         length=len(data),
         content_type="application/octet-stream",
     )
+    logger.info(f"Uploaded flattened USGS DataFrame to MinIO at {CURATED_BUCKET_NAME}/{parquet_object_path}")
 
-def load_parquet_to_postgres(**context) -> None:
-    """
-    Reads curated parquet from MinIO and upserts into Postgres for app serving.
-    """
-    ds = context["ds"]
-    start_dt = pendulum.parse(ds, tz="UTC")
-    parquet_object_path = f"year={start_dt:%Y}/month={start_dt:%m}/day={start_dt:%d}/flattened.parquet"
+# def load_parquet_to_postgres(**context) -> None:
+#     """
+#     Reads curated parquet from MinIO and upserts into Postgres for app serving.
+#     """
+#     ds = context["ds"]
+#     start_dt = pendulum.parse(ds, tz="UTC")
+#     parquet_object_path = f"year={start_dt:%Y}/month={start_dt:%m}/day={start_dt:%d}/flattened.parquet"
 
-    client = get_minio_client()
-    response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
-    try:
-        parquet_bytes = response.read()
-    finally:
-        response.close()
-        response.release_conn()
+#     client = get_minio_client()
+#     response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
+#     try:
+#         parquet_bytes = response.read()
+#     finally:
+#         response.close()
+#         response.release_conn()
     
-    df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
-    if df.empty:
-        return  # No data to load for this day
+#     df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
+#     if df.empty:
+#         return  # No data to load for this day
 
-    # Ensure all expected source columns exist and preserve order
-    for col in EQ_COLUMNS:
-        if col not in df.columns:
-            df[col] = pd.NA
-    df = df[EQ_COLUMNS]
+#     # Ensure all expected source columns exist and preserve order
+#     for col in EQ_COLUMNS:
+#         if col not in df.columns:
+#             df[col] = pd.NA
+#     df = df[EQ_COLUMNS]
     
-    # Convert nested list/dict to JSON text for postgres jsonb column
-    df["geometry.coordinates"] = df["geometry.coordinates"].apply(
-        lambda v: json.dumps(v) if isinstance(v, (list, dict)) else (None if pd.isna(v) else str(v))
-    )
+#     # Convert nested list/dict to JSON text for postgres jsonb column
+#     df["geometry.coordinates"] = df["geometry.coordinates"].apply(
+#         lambda v: json.dumps(v) if isinstance(v, (list, dict)) else (None if pd.isna(v) else str(v))
+#     )
 
 
 with DAG(
     dag_id="usgs_to_minio_daily_http_operator",
-    start_date=pendulum.datetime(2025, 1, 1, tz="UTC"),
+    start_date=pendulum.datetime(2026, 1, 1, tz="UTC"),
     schedule="@daily", # run at the top of every day, pulling yesterday's data at 00:00 UTC
     catchup=False,
     max_active_runs=1,
-    tags=["usgs", "minio", "raw"],
+    tags=["usgs", "minio", "raw"]
 ) as dag:
     fetch_usgs_events_task = HttpOperator(
         task_id="fetch_usgs_events",
