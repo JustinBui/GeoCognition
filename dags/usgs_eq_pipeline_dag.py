@@ -5,6 +5,7 @@ import io
 import json
 import os
 import logging
+from pathlib import Path
 import pendulum
 from airflow import DAG
 from airflow.providers.standard.operators.python import PythonOperator
@@ -15,7 +16,7 @@ from minio import Minio
 import pandas as pd
 import numpy as np
 
-from include.helpers import read_yaml, get_minio_client, debug_context
+from include.common import read_yaml, get_minio_client, debug_context
 from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS
 
 cfg = read_yaml(CONFIG_FILE_PATH)
@@ -134,20 +135,22 @@ def flatten_eq_json_to_df(**context) -> pd.DataFrame:
 
     # Handle geometry.coordinates when present: [longitude, latitude, depth]
     if "geometry.coordinates" in df_features.columns:
-        coords = df_features["geometry.coordinates"].apply(to_list)
+        coords = df_features["geometry.coordinates"].apply(lambda x: to_list(x) if pd.notna(x) else x)
         df_features["longitude"] = coords.str[0]
         df_features["latitude"] = coords.str[1]
         df_features["depth_km"] = coords.str[2]
         df_features.drop(columns=["geometry.coordinates"], inplace=True)
     else:
-        df_features["longitude"] = pd.NA
-        df_features["latitude"] = pd.NA
-        df_features["depth_km"] = pd.NA
+        logger.info("No geometry.coordinates found; filling longitude, latitude, and depth_km with NaN")
+        df_features["longitude"] = np.nan
+        df_features["latitude"] = np.nan
+        df_features["depth_km"] = np.nan
 
     # Ensure all expected columns exist, then enforce output column order.
     for col in EQ_COLUMNS:
         if col not in df_features.columns:
-            df_features[col] = pd.NA
+            logger.info(f"Column '{col}' missing from flattened DataFrame; filling with NaN")
+            df_features[col] = np.nan
     df_features = df_features[EQ_COLUMNS]
     
     logger.info(f"Flattened USGS JSON to DataFrame with {len(df_features)} rows and columns: {df_features.columns.tolist()}")
@@ -236,7 +239,7 @@ with DAG(
         },
         response_check=lambda response: response.status_code == 200, # Raise AirflowException if not 200
         response_filter=lambda response: response.text,  # Pushed to XCom
-        log_response=True, # Avoid logging large JSON payloads in Airflow logs
+        log_response=False, # Avoid logging large JSON payloads in Airflow logs
     )
 
     validate_eq_payload_task = PythonOperator(

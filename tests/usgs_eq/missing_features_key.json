@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1773873858000,
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2025-01-20T00%3A00%3A00&endtime=2025-01-20T23%3A59%3A00&minmagnitude=2.5&orderby=time-asc&limit=20000",
+    "title": "USGS Earthquakes",
+    "status": 200,
+    "api": "2.4.0",
+    "limit": 20000,
+    "offset": 1
+  },
+  "bbox": [
+    -179.964,
+    -73.2204,
+    6.6638,
+    165.8966,
+    64.8693,
+    578.445
+  ]
+}

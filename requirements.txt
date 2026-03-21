@@ -9,6 +9,12 @@ python-box
 PyYAML
 ensure==1.0.2
 apache-airflow
-apache-airflow-providers-http
+apache-airflow-providers-http<5.0.0
 apache-airflow-providers-postgres
 psycopg2-binary
+pytest
+pytest-mock
+pytest-cov
+faker
+freezegun
+pendulum

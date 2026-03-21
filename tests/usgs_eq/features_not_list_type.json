@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1773874411000,
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-03-18T00%3A00%3A00&endtime=2026-03-18T23%3A59%3A00&minmagnitude=2.5&orderby=time-asc&limit=20000",
+    "title": "USGS Earthquakes",
+    "status": 200,
+    "api": "2.4.0",
+    "limit": 20000,
+    "offset": 1
+  },
+  "features": "",
+  "bbox": [
+    -179.9644,
+    -21.6321,
+    -0.72000002861023,
+    178.458,
+    69.467,
+    572.494
+  ]
+}
