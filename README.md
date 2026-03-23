@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ## Running MinIO Locally
 
-1. Creating MinIO Docker Container:
+1a. Creating MinIO Docker Container:
 
 ```powershell
 docker run -d `
@@ -35,7 +35,7 @@ docker run -d `
   minio/minio server /data --console-address ":9001"
 ```
 
-If you are using Git Bash or WSL instead of PowerShell, use:
+1b. If you are using Git Bash or WSL instead of PowerShell, use:
 
 ```bash
 docker run -d \
@@ -64,15 +64,15 @@ AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
 astro dev start
 ```
 
-Then go to `localhost:8080`
+3. Then go to `localhost:8080`
 
-Restarting Astro:
+4. Restarting Astro:
 ```bash
 astro dev stop
 astro dev start
 ```
 
-Hard restarting Astro (Deleting all metadata)
+5. Hard restarting Astro (Deleting all metadata)
 
 ```
 astro dev stop
@@ -80,12 +80,9 @@ astro dev kill
 astro dev start
 ```
 
-Then go to `localhost:8080`
-
-
 ## Running Postgres Locally
 
-1. Creating Postgres Docker Container:
+1a. Creating Postgres Docker Container:
 
 ```powershell
 docker run -d `
@@ -98,7 +95,7 @@ docker run -d `
   postgres:16
 ```
 
-If you are using Git Bash or WSL instead of PowerShell, use:
+1b. If you are using Git Bash or WSL instead of PowerShell, use:
 
 ```bash
 docker run -d \
@@ -109,4 +106,14 @@ docker run -d \
   -p 5433:5432 \
   -v geocog_pgdata:/var/lib/postgresql/data \
   postgres:16
+```
+
+2. To run PpostgresSQL inside the container
+```
+Get-Content -Raw "include/config/create_usgs_earthquakes.sql" | docker exec -i geocog-postgres psql -U postgres -d earthquakes
+```
+
+3. Verify table creation
+```
+docker exec -it geocog-postgres psql -U postgres -d earthquakes -c "\dt usgs_earthquakes"
 ```

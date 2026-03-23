@@ -78,3 +78,37 @@ def test_flatten_eq_json_to_df_helper(file_name: str, expected_len: int) -> None
     assert isinstance(df, pd.DataFrame)
     assert len(df) == expected_len
     assert list(df.columns) == EQ_COLUMNS
+
+# ====================== INTEGRATION TESTING ======================
+
+@pytest.mark.parametrize(
+    "file_name, expected_validation_error, expected_len",
+    [
+        ("healthy_data.json", None, 152),
+        ("empty_features.json", None, 0),
+        ("missing_geometry_key.json", None, 45),
+        ("some_missing_geometry_key.json", None, 152),
+        ("missing_type_key.json", "missing required keys", None),
+        ("missing_metadata_key.json", "missing required keys", None),
+        ("missing_features_key.json", "missing required keys", None),
+        ("features_not_list_type.json", "'features' is not a list", None),
+        ("type_not_feature_collection.json", "type is not 'FeatureCollection'", None),
+        ("nothing.json", "USGS payload is empty", None),
+    ],
+)
+def test_helper_integration_like_dag(
+    file_name: str, expected_validation_error: str | None, expected_len: int | None
+) -> None:
+    raw_json_text = _read_input_text(file_name)
+
+    if expected_validation_error is not None:
+        with pytest.raises(ValueError, match=expected_validation_error):
+            validate_eq_payload_helper(raw_json_text)
+        return
+
+    payload = validate_eq_payload_helper(raw_json_text)
+    df = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS)
+
+    assert isinstance(df, pd.DataFrame)
+    assert len(df) == expected_len
+    assert list(df.columns) == EQ_COLUMNS

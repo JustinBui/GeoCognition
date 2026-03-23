@@ -20,7 +20,20 @@ from include.usgs_eg_helper import *
 cfg = read_yaml(CONFIG_FILE_PATH)
 RAW_BUCKET_NAME = cfg.storage.eq_raw_bucket_name
 CURATED_BUCKET_NAME = cfg.storage.eq_curated_bucket_name
+POSTGRES_CONN_ID = "postgres_default"
 logger = logging.getLogger(__name__)
+
+# Maps EQ_COLUMNS dot-notation names → valid Postgres column names.
+# Top-level GeoJSON "type" ("Feature") and properties.type ("earthquake") would
+# collide if both were just called "type", so they get distinct names.
+_PG_COL_RENAME = {
+    "type": "feature_type",
+    "properties.type": "event_type",
+    "properties.magType": "mag_type",
+}
+for _col in EQ_COLUMNS:
+    if _col not in _PG_COL_RENAME:
+        _PG_COL_RENAME[_col] = _col.replace("properties.", "")
 
 
 def validate_eq_payload(**context) -> str:
@@ -103,35 +116,55 @@ def upload_flattened_eq_to_minio(**context) -> None:
     )
     logger.info(f"Uploaded flattened USGS DataFrame to MinIO at {CURATED_BUCKET_NAME}/{parquet_object_path}")
 
-# def load_parquet_to_postgres(**context) -> None:
-#     """
-#     Reads curated parquet from MinIO and upserts into Postgres for app serving.
-#     """
-#     ds = context["ds"]
-#     parquet_object_path = get_partition_path(ds, "flattened.parquet")
+def load_eq_to_postgres(**context) -> None:
+    """
+    Reads the curated Parquet from MinIO and upserts into Postgres.
+    Uses ON CONFLICT (id) DO UPDATE so the task is safe to rerun.
+    Requires a table created with the DDL in include/config/create_usgs_earthquakes.sql.
+    """
+    import psycopg2.extras
 
-#     client = get_minio_client()
-#     response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
-#     try:
-#         parquet_bytes = response.read()
-#     finally:
-#         response.close()
-#         response.release_conn()
-    
-#     df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
-#     if df.empty:
-#         return  # No data to load for this day
+    ds = context["ds"]
+    parquet_object_path = get_partition_path(ds, "flattened.parquet")
 
-#     # Ensure all expected source columns exist and preserve order
-#     for col in EQ_COLUMNS:
-#         if col not in df.columns:
-#             df[col] = pd.NA
-#     df = df[EQ_COLUMNS]
-    
-#     # Convert nested list/dict to JSON text for postgres jsonb column
-#     df["geometry.coordinates"] = df["geometry.coordinates"].apply(
-#         lambda v: json.dumps(v) if isinstance(v, (list, dict)) else (None if pd.isna(v) else str(v))
-#     )
+    client = get_minio_client()
+    response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
+    try:
+        parquet_bytes = response.read()
+    finally:
+        response.close()
+        response.release_conn()
+
+    df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
+    if df.empty:
+        logger.info("No earthquake data to load for %s — skipping Postgres upsert", ds)
+        return
+
+    # Normalize integer-like columns to nullable Int64 to avoid float->bigint
+    # coercion issues when pandas upcasts due to missing values.
+    for col in ["time", "updated", "tsunami", "sig"]:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
+
+    # psycopg2 needs Python None, not numpy NaN / pandas NA
+    df = df.where(pd.notna(df), other=None)
+
+    pg_cols = list(df.columns)
+    col_str = ", ".join(f'"{c}"' for c in pg_cols)
+    update_str = ", ".join(f'"{c}" = EXCLUDED."{c}"' for c in pg_cols if c != "id")
+    sql = (
+        f'INSERT INTO usgs_earthquakes ({col_str}) VALUES %s '
+        f'ON CONFLICT (id) DO UPDATE SET {update_str}'
+    )
+
+    rows = [tuple(row) for row in df.itertuples(index=False, name=None)]
+
+    hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
+    conn = hook.get_conn()
+    with conn:
+        with conn.cursor() as cur:
+            psycopg2.extras.execute_values(cur, sql, rows)
+    logger.info("Upserted %d earthquake records into Postgres for %s", len(df), ds)
 
 
 with DAG(
@@ -180,11 +213,17 @@ with DAG(
         python_callable=upload_flattened_eq_to_minio,
     )
 
+    load_eq_to_postgres_task = PythonOperator(
+        task_id="load_eq_to_postgres",
+        python_callable=load_eq_to_postgres,
+    )
+
     # DAG structure
     chain(
         fetch_usgs_events_task,
         validate_eq_payload_task,
         upload_raw_eq_json_to_minio_task,
         flatten_eq_json_to_df_task,
-        upload_flattened_eq_to_minio_task
+        upload_flattened_eq_to_minio_task,
+        load_eq_to_postgres_task,
     )
