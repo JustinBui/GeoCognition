@@ -5,7 +5,7 @@ import logging
 from pathlib import Path
 import pendulum
 from airflow import DAG
-from airflow.providers.standard.operators.python import PythonOperator
+from airflow.sdk import task, get_current_context
 from airflow.providers.http.operators.http import HttpOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.sdk.bases.operator import chain
@@ -36,22 +36,22 @@ for _col in EQ_COLUMNS:
         _PG_COL_RENAME[_col] = _col.replace("properties.", "")
 
 
-def validate_eq_payload(**context) -> str:
+@task(task_id="validate_eq_payload")
+def validate_eq_payload(raw_json_text: str) -> str:
     """
     Validates the raw JSON payload from the USGS API. Raises ValueError if validation fails.
     Returns the raw JSON text if validation succeeds, which is then pushed to XCom for downstream tasks.
     """
-    raw_json_text = context["ti"].xcom_pull(task_ids="fetch_usgs_events")  # Pulling the raw JSON text from the previous task's XCom
     payload = validate_eq_payload_helper(raw_json_text)  # Validate the payload
     logger.info(f"USGS payload validation succeeded with {len(payload['features'])} features")
     return raw_json_text
 
-def upload_raw_eq_json_to_minio(**context) -> None:
+@task(task_id="upload_raw_eq_json_to_minio")
+def upload_raw_eq_json_to_minio(raw_json_text: str) -> str:
     """
     Uploads the validated raw JSON payload to MinIO.
     """
-    raw_json_text = context["ti"].xcom_pull(task_ids="validate_eq_payload") # Pulling the raw JSON text from the previous task's XCom
-
+    context = get_current_context()
     ds = context["ds"]  # e.g. 2025-01-01
     object_name = get_partition_path(ds, "raw.json")  # e.g. year=2025/month=01/day=01/raw.json
     payload = raw_json_text.encode("utf-8")
@@ -70,13 +70,13 @@ def upload_raw_eq_json_to_minio(**context) -> None:
     )
 
     logger.info(f"Uploaded raw USGS JSON to MinIO at {RAW_BUCKET_NAME}/{object_name}")
+    return object_name
 
-def flatten_eq_json_to_df(**context) -> pd.DataFrame:
+@task(task_id="flatten_eq_json_to_df")
+def flatten_eq_json_to_df(raw_object_path: str) -> pd.DataFrame:
     """
     Flattens the raw JSON payload and returns a DataFrame
     """
-    ds = context["ds"]  # e.g. 2025-01-01
-    raw_object_path = get_partition_path(ds, "raw.json")
     client = get_minio_client()
     response = client.get_object(RAW_BUCKET_NAME, raw_object_path)  # Pulling JSON from MinIO
     
@@ -93,10 +93,12 @@ def flatten_eq_json_to_df(**context) -> pd.DataFrame:
     
     return df_features
 
-def upload_flattened_eq_to_minio(**context) -> None:
+@task(task_id="upload_flattened_eq_to_minio")
+def upload_flattened_eq_to_minio(df_features: pd.DataFrame) -> str:
     """
     Uploads the flattened DataFrame as Parquet to MinIO
     """
+    context = get_current_context()
     ds = context["ds"]
     parquet_object_path = get_partition_path(ds, "flattened.parquet")
 
@@ -104,7 +106,6 @@ def upload_flattened_eq_to_minio(**context) -> None:
     if not client.bucket_exists(CURATED_BUCKET_NAME):
         client.make_bucket(CURATED_BUCKET_NAME)
 
-    df_features = context["ti"].xcom_pull(task_ids="flatten_eq_json_to_df")
     data = dataframe_to_parquet_bytes(df_features)
 
     client.put_object(
@@ -115,8 +116,10 @@ def upload_flattened_eq_to_minio(**context) -> None:
         content_type="application/octet-stream",
     )
     logger.info(f"Uploaded flattened USGS DataFrame to MinIO at {CURATED_BUCKET_NAME}/{parquet_object_path}")
+    return parquet_object_path
 
-def load_eq_to_postgres(**context) -> None:
+@task(task_id="load_eq_to_postgres")
+def load_eq_to_postgres(parquet_object_path: str) -> None:
     """
     Reads the curated Parquet from MinIO and upserts into Postgres.
     Uses ON CONFLICT (id) DO UPDATE so the task is safe to rerun.
@@ -124,8 +127,8 @@ def load_eq_to_postgres(**context) -> None:
     """
     import psycopg2.extras
 
+    context = get_current_context()
     ds = context["ds"]
-    parquet_object_path = get_partition_path(ds, "flattened.parquet")
 
     client = get_minio_client()
     response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
@@ -199,30 +202,11 @@ with DAG(
         log_response=False, # Avoid logging large JSON payloads in Airflow logs
     )
 
-    validate_eq_payload_task = PythonOperator(
-        task_id="validate_eq_payload",
-        python_callable=validate_eq_payload,
-    )
-    
-    upload_raw_eq_json_to_minio_task = PythonOperator(
-        task_id="upload_raw_eq_json_to_minio",
-        python_callable=upload_raw_eq_json_to_minio,
-    )
-
-    flatten_eq_json_to_df_task = PythonOperator(
-        task_id="flatten_eq_json_to_df",
-        python_callable=flatten_eq_json_to_df,
-    )
-
-    upload_flattened_eq_to_minio_task = PythonOperator(
-        task_id="upload_flattened_eq_to_minio",
-        python_callable=upload_flattened_eq_to_minio,
-    )
-
-    load_eq_to_postgres_task = PythonOperator(
-        task_id="load_eq_to_postgres",
-        python_callable=load_eq_to_postgres,
-    )
+    validate_eq_payload_task = validate_eq_payload(fetch_usgs_events_task.output)
+    upload_raw_eq_json_to_minio_task = upload_raw_eq_json_to_minio(validate_eq_payload_task)
+    flatten_eq_json_to_df_task = flatten_eq_json_to_df(upload_raw_eq_json_to_minio_task)
+    upload_flattened_eq_to_minio_task = upload_flattened_eq_to_minio(flatten_eq_json_to_df_task)
+    load_eq_to_postgres_task = load_eq_to_postgres(upload_flattened_eq_to_minio_task)
 
     # DAG structure
     chain(
