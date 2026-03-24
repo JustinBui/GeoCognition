@@ -20,7 +20,7 @@ from include.usgs_eg_helper import *
 cfg = read_yaml(CONFIG_FILE_PATH)
 RAW_BUCKET_NAME = cfg.storage.eq_raw_bucket_name
 CURATED_BUCKET_NAME = cfg.storage.eq_curated_bucket_name
-POSTGRES_CONN_ID = "postgres_default"
+POSTGRES_CONN_ID = cfg.postgres.conn_id
 logger = logging.getLogger(__name__)
 
 # Maps EQ_COLUMNS dot-notation names → valid Postgres column names.
@@ -145,6 +145,12 @@ def load_eq_to_postgres(**context) -> None:
     for col in ["time", "updated", "tsunami", "sig"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
+
+    # Keep only expected source columns, then rename to SQL-safe names.
+    for col in EQ_COLUMNS:
+        if col not in df.columns:
+            df[col] = pd.NA
+    df = df[EQ_COLUMNS].rename(columns=_PG_COL_RENAME)
 
     # psycopg2 needs Python None, not numpy NaN / pandas NA
     df = df.where(pd.notna(df), other=None)

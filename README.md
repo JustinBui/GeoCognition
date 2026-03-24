@@ -2,7 +2,6 @@
 Data analytics platform for earth data
 
 
-
 # Setting Up
 
 ## Required Installations
@@ -10,7 +9,7 @@ Data analytics platform for earth data
  - Python
  - Astro
 
-Environment variables
+Virtual environment
 
 ```
 conda create -p venv python==3.10 -y
@@ -19,6 +18,18 @@ pip install -r requirements.txt
 ```
 
 # Docker Runs (Locally)
+
+## Environment Variables (If Running Locally):
+
+1. If you don't have one, create an `.env` file in the root directory of this project. In the file, add:
+
+```bash
+MINIO_ACCESS_KEY="minio"
+MINIO_SECRET_KEY="minio123"
+AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
+AIRFLOW_CONN_POSTGRES_EARTHQUAKES=postgresql://postgres:postgres@host.docker.internal:5433/earthquakes
+AIRFLOW_CONN_POSTGRES_DEFAULT=postgresql://postgres:postgres@host.docker.internal:5433/earthquakes
+```
 
 ## Running MinIO Locally
 
@@ -53,26 +64,20 @@ docker run -d \
 
 ## Running Astro Airflow Locally
 
-1. If you don't have one, create an `.env` file in the root directory of this project. In the file, add:
-
-```bash
-AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
-```
-
-2. Start Airflow:
+1. Start Airflow:
 ```bash
 astro dev start
 ```
 
-3. Then go to `localhost:8080`
+2. Then go to `localhost:8080`
 
-4. Restarting Astro:
+3. Restarting Astro:
 ```bash
 astro dev stop
 astro dev start
 ```
 
-5. Hard restarting Astro (Deleting all metadata)
+4. Hard restarting Astro (Deleting all metadata)
 
 ```
 astro dev stop

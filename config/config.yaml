@@ -7,3 +7,6 @@ data_ingestion:
 storage:
   eq_raw_bucket_name: earthquake-raw
   eq_curated_bucket_name: earthquake-curated
+
+postgres:
+  conn_id: postgres_default
