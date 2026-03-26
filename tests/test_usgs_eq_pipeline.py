@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-from include.constants import EQ_COLUMNS
-from include.usgs_eg_helper import (
+from include.constants import EQ_COLUMNS_ORIGINAL
+from include.usgs_eq_helper import (
     flatten_eq_json_to_df_helper,
     validate_eq_payload_helper,
 )
@@ -73,11 +73,11 @@ def test_validate_eq_payload_helper(file_name: str, expected_error: str | None) 
 def test_flatten_eq_json_to_df_helper(file_name: str, expected_len: int) -> None:
     payload = _read_input_json(file_name)
 
-    df = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS)
+    df = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS_ORIGINAL)
 
     assert isinstance(df, pd.DataFrame)
     assert len(df) == expected_len
-    assert list(df.columns) == EQ_COLUMNS
+    assert list(df.columns) == EQ_COLUMNS_ORIGINAL
 
 # ====================== INTEGRATION TESTING ======================
 
@@ -107,8 +107,8 @@ def test_helper_integration_like_dag(
         return
 
     payload = validate_eq_payload_helper(raw_json_text)
-    df = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS)
+    df = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS_ORIGINAL)
 
     assert isinstance(df, pd.DataFrame)
     assert len(df) == expected_len
-    assert list(df.columns) == EQ_COLUMNS
+    assert list(df.columns) == EQ_COLUMNS_ORIGINAL

@@ -13,8 +13,8 @@ from minio import Minio
 import pandas as pd
 import numpy as np
 from include.common import read_yaml, get_minio_client, get_partition_path, dataframe_to_parquet_bytes
-from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS
-from include.usgs_eg_helper import *
+from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS_ORIGINAL
+from include.usgs_eq_helper import *
 
 cfg = read_yaml(CONFIG_FILE_PATH)
 RAW_BUCKET_NAME = cfg.storage.eq_raw_bucket_name
@@ -22,7 +22,7 @@ CURATED_BUCKET_NAME = cfg.storage.eq_curated_bucket_name
 POSTGRES_CONN_ID = cfg.postgres.conn_id
 logger = logging.getLogger(__name__)
 
-# Maps EQ_COLUMNS dot-notation names → valid Postgres column names.
+# Maps EQ_COLUMNS_ORIGINAL dot-notation names → valid Postgres column names.
 # Top-level GeoJSON "type" ("Feature") and properties.type ("earthquake") would
 # collide if both were just called "type", so they get distinct names.
 _PG_COL_RENAME = {
@@ -30,7 +30,7 @@ _PG_COL_RENAME = {
     "properties.type": "event_type",
     "properties.magType": "mag_type",
 }
-for _col in EQ_COLUMNS:
+for _col in EQ_COLUMNS_ORIGINAL:
     if _col not in _PG_COL_RENAME:
         _PG_COL_RENAME[_col] = _col.replace("properties.", "")
 
@@ -52,7 +52,7 @@ def upload_raw_eq_json_to_minio(raw_json_text: str) -> str:
     """
     context = get_current_context()
     ds = context["ds"]  # e.g. 2025-01-01
-    object_name = get_partition_path(ds, "raw.json")  # e.g. year=2025/month=01/day=01/raw.json
+    raw_object_path = get_partition_path(ds, "raw.json")  # e.g. year=2025/month=01/day=01/raw.json
     payload = raw_json_text.encode("utf-8")
 
     client = get_minio_client()
@@ -62,14 +62,14 @@ def upload_raw_eq_json_to_minio(raw_json_text: str) -> str:
 
     client.put_object(
         bucket_name=RAW_BUCKET_NAME,
-        object_name=object_name,
+        object_name=raw_object_path,
         data=io.BytesIO(payload),
         length=len(payload),
         content_type="application/json",
     )
 
-    logger.info(f"Uploaded raw USGS JSON to MinIO at {RAW_BUCKET_NAME}/{object_name}")
-    return object_name
+    logger.info(f"Uploaded raw USGS JSON to MinIO at {RAW_BUCKET_NAME}/{raw_object_path}")
+    return raw_object_path
 
 @task(task_id="flatten_eq_json_to_df")
 def flatten_eq_json_to_df(raw_object_path: str) -> pd.DataFrame:
@@ -86,14 +86,27 @@ def flatten_eq_json_to_df(raw_object_path: str) -> pd.DataFrame:
         response.close() # Closing the response stream
         response.release_conn() # Return the HTTP connection to the pool, making the connection available for the next request
     
-    df_features = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS)  # Flatten the JSON to a DataFrame using the helper function
+    df = flatten_eq_json_to_df_helper(payload, EQ_COLUMNS_ORIGINAL)  # Flatten the JSON to a DataFrame using the helper function
     
-    logger.info(f"Flattened USGS JSON to DataFrame with {len(df_features)} rows and columns: {df_features.columns.tolist()}")
+    logger.info(f"Flattened USGS JSON to DataFrame with {len(df)} rows and columns: {df.columns.tolist()}")
     
-    return df_features
+    return df
+
+@task(task_id="rename_df_columns")
+def rename_df_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Renames DataFrame columns from dot notation to SQL-safe names.
+    """
+    df.drop('type', axis=1, inplace=True) # Drop irrelevant top-level GeoJSON "type" column which is always "Feature"
+    df.rename(columns={"properties.type": "seismic_event"}, inplace=True)
+    df.rename(columns={"properties.types": "product_types"}, inplace=True)
+    df.rename(columns=lambda c: c.replace("properties.", ""), inplace=True)
+
+    logger.info(f"Renamed DataFrame columns to SQL-safe names: {df.columns.tolist()}")
+    return df
 
 @task(task_id="upload_flattened_eq_to_minio")
-def upload_flattened_eq_to_minio(df_features: pd.DataFrame) -> str:
+def upload_flattened_eq_to_minio(df: pd.DataFrame) -> str:
     """
     Uploads the flattened DataFrame as Parquet to MinIO
     """
@@ -105,7 +118,7 @@ def upload_flattened_eq_to_minio(df_features: pd.DataFrame) -> str:
     if not client.bucket_exists(CURATED_BUCKET_NAME):
         client.make_bucket(CURATED_BUCKET_NAME)
 
-    data = dataframe_to_parquet_bytes(df_features)
+    data = dataframe_to_parquet_bytes(df)
 
     client.put_object(
         bucket_name=CURATED_BUCKET_NAME,
@@ -119,60 +132,62 @@ def upload_flattened_eq_to_minio(df_features: pd.DataFrame) -> str:
 
 @task(task_id="load_eq_to_postgres")
 def load_eq_to_postgres(parquet_object_path: str) -> None:
+    return None
+
     """
     Reads the curated Parquet from MinIO and upserts into Postgres.
     Uses ON CONFLICT (id) DO UPDATE so the task is safe to rerun.
     Requires a table created with the DDL in include/config/create_usgs_earthquakes.sql.
     """
-    import psycopg2.extras
+    # import psycopg2.extras
 
-    context = get_current_context()
-    ds = context["ds"]
+    # context = get_current_context()
+    # ds = context["ds"]
+    
+    # client = get_minio_client()
+    # response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
+    # try:
+    #     parquet_bytes = response.read()
+    # finally:
+    #     response.close()
+    #     response.release_conn()
 
-    client = get_minio_client()
-    response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
-    try:
-        parquet_bytes = response.read()
-    finally:
-        response.close()
-        response.release_conn()
+    # df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
+    # if df.empty:
+    #     logger.info("No earthquake data to load for %s — skipping Postgres upsert", ds)
+    #     return
 
-    df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
-    if df.empty:
-        logger.info("No earthquake data to load for %s — skipping Postgres upsert", ds)
-        return
+    # # Normalize integer-like columns to nullable Int64 to avoid float->bigint
+    # # coercion issues when pandas upcasts due to missing values.
+    # for col in ["time", "updated", "tsunami", "sig"]:
+    #     if col in df.columns:
+    #         df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
 
-    # Normalize integer-like columns to nullable Int64 to avoid float->bigint
-    # coercion issues when pandas upcasts due to missing values.
-    for col in ["time", "updated", "tsunami", "sig"]:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
+    # # Keep only expected source columns, then rename to SQL-safe names.
+    # for col in EQ_COLUMNS_ORIGINAL:
+    #     if col not in df.columns:
+    #         df[col] = pd.NA
+    # df = df[EQ_COLUMNS_ORIGINAL].rename(columns=_PG_COL_RENAME)
 
-    # Keep only expected source columns, then rename to SQL-safe names.
-    for col in EQ_COLUMNS:
-        if col not in df.columns:
-            df[col] = pd.NA
-    df = df[EQ_COLUMNS].rename(columns=_PG_COL_RENAME)
+    # # psycopg2 needs Python None, not numpy NaN / pandas NA
+    # df = df.where(pd.notna(df), other=None)
 
-    # psycopg2 needs Python None, not numpy NaN / pandas NA
-    df = df.where(pd.notna(df), other=None)
+    # pg_cols = list(df.columns)
+    # col_str = ", ".join(f'"{c}"' for c in pg_cols)
+    # update_str = ", ".join(f'"{c}" = EXCLUDED."{c}"' for c in pg_cols if c != "id")
+    # sql = (
+    #     f'INSERT INTO usgs_earthquakes ({col_str}) VALUES %s '
+    #     f'ON CONFLICT (id) DO UPDATE SET {update_str}'
+    # )
 
-    pg_cols = list(df.columns)
-    col_str = ", ".join(f'"{c}"' for c in pg_cols)
-    update_str = ", ".join(f'"{c}" = EXCLUDED."{c}"' for c in pg_cols if c != "id")
-    sql = (
-        f'INSERT INTO usgs_earthquakes ({col_str}) VALUES %s '
-        f'ON CONFLICT (id) DO UPDATE SET {update_str}'
-    )
+    # rows = [tuple(row) for row in df.itertuples(index=False, name=None)]
 
-    rows = [tuple(row) for row in df.itertuples(index=False, name=None)]
-
-    hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
-    conn = hook.get_conn()
-    with conn:
-        with conn.cursor() as cur:
-            psycopg2.extras.execute_values(cur, sql, rows)
-    logger.info("Upserted %d earthquake records into Postgres for %s", len(df), ds)
+    # hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
+    # conn = hook.get_conn()
+    # with conn:
+    #     with conn.cursor() as cur:
+    #         psycopg2.extras.execute_values(cur, sql, rows)
+    # logger.info("Upserted %d earthquake records into Postgres for %s", len(df), ds)
 
 
 with DAG(
@@ -204,7 +219,8 @@ with DAG(
     validate_eq_payload_task = validate_eq_payload(fetch_usgs_events_task.output)
     upload_raw_eq_json_to_minio_task = upload_raw_eq_json_to_minio(validate_eq_payload_task)
     flatten_eq_json_to_df_task = flatten_eq_json_to_df(upload_raw_eq_json_to_minio_task)
-    upload_flattened_eq_to_minio_task = upload_flattened_eq_to_minio(flatten_eq_json_to_df_task)
+    rename_df_columns_task = rename_df_columns(flatten_eq_json_to_df_task)
+    upload_flattened_eq_to_minio_task = upload_flattened_eq_to_minio(rename_df_columns_task)
     load_eq_to_postgres_task = load_eq_to_postgres(upload_flattened_eq_to_minio_task)
 
     # DAG structure
@@ -213,6 +229,7 @@ with DAG(
         validate_eq_payload_task,
         upload_raw_eq_json_to_minio_task,
         flatten_eq_json_to_df_task,
+        rename_df_columns_task,
         upload_flattened_eq_to_minio_task,
         load_eq_to_postgres_task,
     )
