@@ -9,4 +9,4 @@ storage:
   eq_curated_bucket_name: earthquake-curated
 
 postgres:
-  conn_id: postgres_default
+  conn_id: usgs_postgres_db

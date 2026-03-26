@@ -27,42 +27,58 @@ pip install -r requirements.txt
 MINIO_ACCESS_KEY="minio"
 MINIO_SECRET_KEY="minio123"
 AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
-AIRFLOW_CONN_POSTGRES_EARTHQUAKES=postgresql://postgres:postgres@host.docker.internal:5433/earthquakes
-AIRFLOW_CONN_POSTGRES_DEFAULT=postgresql://postgres:postgres@host.docker.internal:5433/earthquakes
+AIRFLOW_CONN_USGS_POSTGRES_DB=postgresql://postgres:postgres@host.docker.internal:5433/earthquakes
 ```
 
-## Running MinIO Locally
+## Run Postgres + MinIO with Docker Compose
 
-1a. Creating MinIO Docker Container:
-
-```powershell
-docker run -d `
-  --name minio `
-  -p 9000:9000 `
-  -p 9001:9001 `
-  -v minio-data:/data `
-  -e MINIO_ROOT_USER=minio `
-  -e MINIO_ROOT_PASSWORD=minio123 `
-  minio/minio server /data --console-address ":9001"
-```
-
-1b. If you are using Git Bash or WSL instead of PowerShell, use:
+From the project root, start both data services:
 
 ```bash
-docker run -d \
-  --name minio \
-  -p 9000:9000 \
-  -p 9001:9001 \
-  -v minio-data:/data \
-  -e MINIO_ROOT_USER=minio \
-  -e MINIO_ROOT_PASSWORD=minio123 \
-  minio/minio server /data --console-address ":9001"
+docker compose up -d
 ```
 
-2. Then go into `localhost:9001`
+This project compose file exposes:
 
+- Postgres on `localhost:5433` (container DB name: `earthquakes`)
+- MinIO API on `localhost:9000`
+- MinIO Console on `localhost:9001`
 
-## Running Astro Airflow Locally
+## First-Time Startup (From Scratch)
+
+Run these commands in order from the project root:
+
+1. Start data services (Postgres + MinIO)
+```bash
+docker compose up -d
+```
+
+2. Start Airflow with Astro
+```bash
+astro dev start
+```
+
+3. Create the target table in Postgres (one time)
+```powershell
+Get-Content -Raw "include/config/create_usgs_earthquakes.sql" | docker exec -i geocog-postgres psql -U postgres -d earthquakes
+```
+
+4. Verify table creation
+```powershell
+docker exec -it geocog-postgres psql -U postgres -d earthquakes -c "\dt usgs_earthquakes"
+```
+
+5. Open Airflow and trigger DAG `usgs_to_minio_daily_http_operator`
+   - Airflow: `http://localhost:8080`
+
+6. Verify rows were upserted
+```powershell
+docker exec -it geocog-postgres psql -U postgres -d earthquakes -c "select count(*) from usgs_earthquakes;"
+```
+
+## Running Astro Airflow Locally (Subsequent runs after first time startup)
+
+Astro CLI runs Airflow in its own Docker-managed stack (webserver, scheduler, triggerer, and metadata Postgres).
 
 1. Start Airflow:
 ```bash
@@ -71,7 +87,7 @@ astro dev start
 
 2. Then go to `localhost:8080`
 
-3. Restarting Astro:
+3. If restarting Astro:
 ```bash
 astro dev stop
 astro dev start
@@ -85,40 +101,18 @@ astro dev kill
 astro dev start
 ```
 
-## Running Postgres Locally
+## Reset and Rebuild Local Environment
 
-1a. Creating Postgres Docker Container:
+Use this when you want a clean local restart.
 
-```powershell
-docker run -d `
-  --name geocog-postgres `
-  -e POSTGRES_USER=postgres `
-  -e POSTGRES_PASSWORD=postgres `
-  -e POSTGRES_DB=earthquakes `
-  -p 5433:5432 `
-  -v geocog_pgdata:/var/lib/postgresql/data `
-  postgres:16
-```
-
-1b. If you are using Git Bash or WSL instead of PowerShell, use:
-
+1. Stop and reset Astro containers
 ```bash
-docker run -d \
-  --name geocog-postgres \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=earthquakes \
-  -p 5433:5432 \
-  -v geocog_pgdata:/var/lib/postgresql/data \
-  postgres:16
+astro dev kill
 ```
 
-2. To run PpostgresSQL inside the container
-```
-Get-Content -Raw "include/config/create_usgs_earthquakes.sql" | docker exec -i geocog-postgres psql -U postgres -d earthquakes
+2. Stop and remove Compose services and volumes
+```bash
+docker compose down -v
 ```
 
-3. Verify table creation
-```
-docker exec -it geocog-postgres psql -U postgres -d earthquakes -c "\dt usgs_earthquakes"
-```
+3. Start again using the first-time startup steps

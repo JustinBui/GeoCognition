@@ -12,7 +12,6 @@ from airflow.sdk.bases.operator import chain
 from minio import Minio
 import pandas as pd
 import numpy as np
-
 from include.common import read_yaml, get_minio_client, get_partition_path, dataframe_to_parquet_bytes
 from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS
 from include.usgs_eg_helper import *
