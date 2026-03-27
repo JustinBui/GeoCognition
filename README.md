@@ -122,7 +122,12 @@ docker compose down -v
 Before pushing code to GitHub, run the following commands
 
 ```bash
-ruff check . --fix # Finds problems (bugs, bad patterns, lint issues), while fixes what it can
-black . # Fixes formatting (style only, not logic)
-pytest # Unit testing
+# Finds problems (bugs, bad patterns, lint issues), while fixes what it can (ignore .ipynb inside of prototype/)
+ruff check . --fix --exclude prototype 
+
+# Fixes formatting (style only, not logic)
+black .
+
+# Unit testing
+pytest 
 ```
