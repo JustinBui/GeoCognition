@@ -6,6 +6,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def validate_eq_payload_helper(raw_json_text: str) -> dict:
     """
     Helper for validate_eq_payload task
@@ -30,11 +31,12 @@ def validate_eq_payload_helper(raw_json_text: str) -> dict:
     if payload.get("type") != "FeatureCollection":
         raise ValueError("USGS payload type is not 'FeatureCollection'")
 
-     # Validate that 'features' is a list (even if empty), as expected from USGS GeoJSON
+    # Validate that 'features' is a list (even if empty), as expected from USGS GeoJSON
     if not isinstance(payload.get("features"), list):
         raise ValueError("USGS payload 'features' is not a list")
 
     return payload
+
 
 def flatten_eq_json_to_df_helper(payload: dict, eq_columns: list[str]) -> pd.DataFrame:
     """
@@ -56,14 +58,18 @@ def flatten_eq_json_to_df_helper(payload: dict, eq_columns: list[str]) -> pd.Dat
         df_features["depth_km"] = coords.str[2]
         df_features.drop(columns=["geometry.coordinates"], inplace=True)
     else:
-        logger.warning("No geometry.coordinates found; filling longitude, latitude, and depth_km with NaN")
+        logger.warning(
+            "No geometry.coordinates found; filling longitude, latitude, and depth_km with NaN"
+        )
         df_features["longitude"] = np.nan
         df_features["latitude"] = np.nan
         df_features["depth_km"] = np.nan
 
     for col in eq_columns:
         if col not in df_features.columns:
-            logger.warning(f"Column '{col}' missing from flattened DataFrame; filling with NaN")
+            logger.warning(
+                f"Column '{col}' missing from flattened DataFrame; filling with NaN"
+            )
             df_features[col] = np.nan
 
     return df_features[eq_columns]

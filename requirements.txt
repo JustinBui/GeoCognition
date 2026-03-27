@@ -18,3 +18,5 @@ pytest-cov
 faker
 freezegun
 pendulum
+ruff
+black

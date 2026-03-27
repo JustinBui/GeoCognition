@@ -12,6 +12,7 @@ import pendulum
 import json
 import numpy as np
 
+
 def read_yaml(path_to_yaml: Path, verbose=True) -> ConfigBox:
     """
     Reads yaml file and returns a ConfigBox object.
@@ -26,7 +27,8 @@ def read_yaml(path_to_yaml: Path, verbose=True) -> ConfigBox:
         raise ValueError("yaml file is empty")
     except Exception as e:
         raise e
-    
+
+
 def create_directories(path_to_directories: list, verbose=True) -> None:
     """
     Create list of directories
@@ -43,6 +45,7 @@ def debug_context(**context) -> None:
     logging.info("data_interval_start=%s", context.get("data_interval_start"))
     logging.info("data_interval_end=%s", context.get("data_interval_end"))
 
+
 def to_list(v):
     """
     Helper to convert a JSON string representation of a list back to a Python list, if needed.
@@ -54,6 +57,7 @@ def to_list(v):
             return np.nan
     return v
 
+
 def dataframe_to_parquet_bytes(df: pd.DataFrame) -> bytes:
     """
     Helper to convert a DataFrame to Parquet bytes for in-memory upload to MinIO
@@ -61,7 +65,10 @@ def dataframe_to_parquet_bytes(df: pd.DataFrame) -> bytes:
     buf = io.BytesIO()
     df.to_parquet(buf, index=False, engine="pyarrow")
     return buf.getvalue()
+
+
 # --------------------- MINIO HELPER FUNCIONS --------------------
+
 
 def get_minio_client() -> Minio:
     """
@@ -87,12 +94,14 @@ def ensure_bucket_exists(client: Minio, bucket_name: str) -> None:
     if not found:
         client.make_bucket(bucket_name)
 
+
 def get_partition_path(ds: str, filename: str) -> str:
     """
     Helper for building partitioned object paths in MinIO based on the execution date (ds) and filename.
     """
     dt = pendulum.parse(ds, tz="UTC")
     return f"year={dt:%Y}/month={dt:%m}/day={dt:%d}/{filename}"
+
 
 # def upload_file_to_minio(
 #     local_file_path: str,

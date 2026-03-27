@@ -116,3 +116,13 @@ docker compose down -v
 ```
 
 3. Start again using the first-time startup steps
+
+# Pushing Code
+
+Before pushing code to GitHub, run the following commands
+
+```bash
+ruff check . --fix # Finds problems (bugs, bad patterns, lint issues), while fixes what it can
+black . # Fixes formatting (style only, not logic)
+pytest # Unit testing
+```

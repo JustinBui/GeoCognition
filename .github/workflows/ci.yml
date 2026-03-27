@@ -1,0 +1,110 @@
+name: GeoCognition CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: earthquakes
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d earthquakes"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+      AIRFLOW_CONN_USGS_API: http://earthquake.usgs.gov
+      AIRFLOW_CONN_USGS_POSTGRES_DB: postgresql://postgres:postgres@localhost:5433/earthquakes
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff black
+
+      # ✅ LINT STEP (Ruff)
+      - name: Run Ruff (lint)
+        run: |
+          ruff check .
+
+      # ✅ FORMAT CHECK (Black)
+      - name: Run Black (format check)
+        run: |
+          black --check .
+
+      - name: Start MinIO
+        run: |
+          docker run -d \
+            --name minio \
+            -p 9000:9000 \
+            -p 9001:9001 \
+            -e MINIO_ROOT_USER=minio \
+            -e MINIO_ROOT_PASSWORD=minio123 \
+            minio/minio server /data --console-address ":9001"
+
+      - name: Wait for Postgres
+        run: |
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5433 -U postgres -d earthquakes && exit 0
+            sleep 2
+          done
+          echo "Postgres did not become ready in time."
+          exit 1
+
+      - name: Wait for MinIO
+        run: |
+          for i in {1..30}; do
+            curl -fsS http://localhost:9000/minio/health/live && exit 0
+            sleep 2
+          done
+          echo "MinIO did not become ready in time."
+          docker logs minio || true
+          exit 1
+
+      - name: Run pytest
+        run: |
+          pytest -v --maxfail=1 --disable-warnings
+
+      - name: Build Docker image
+        run: |
+          docker build -t geocognition-ci .
+
+      - name: Show MinIO logs on failure
+        if: failure()
+        run: docker logs minio || true

@@ -1,4 +1,4 @@
-# To run this file, be inside of your root directory. Then run 
+# To run this file, be inside of your root directory. Then run
 #       pytest tests/test_usgs_eq_pipeline.py -q
 
 import json
@@ -13,7 +13,6 @@ from include.usgs_eq_helper import (
     validate_eq_payload_helper,
 )
 
-
 TEST_INPUTS_DIR = Path(__file__).parent / "usgs_eq_inputs"
 
 
@@ -27,10 +26,11 @@ def _read_input_json(file_name: str) -> dict:
 
 # ====================== Test cases for validate_eq_payload_helper ======================
 
+
 @pytest.mark.parametrize(
     "file_name, expected_error",
     [
-        ('empty_features.json', None),
+        ("empty_features.json", None),
         ("features_not_list_type.json", "'features' is not a list"),
         ("healthy_data.json", None),
         ("missing_features_key.json", "missing required keys"),
@@ -54,7 +54,9 @@ def test_validate_eq_payload_helper(file_name: str, expected_error: str | None) 
     assert payload["type"] == "FeatureCollection"
     assert isinstance(payload["features"], list)
 
+
 # ====================== Test cases for flatten_eq_json_to_df_helper ======================
+
 
 @pytest.mark.parametrize(
     "file_name, expected_len",
@@ -79,7 +81,9 @@ def test_flatten_eq_json_to_df_helper(file_name: str, expected_len: int) -> None
     assert len(df) == expected_len
     assert list(df.columns) == EQ_COLUMNS_ORIGINAL
 
+
 # ====================== INTEGRATION TESTING ======================
+
 
 @pytest.mark.parametrize(
     "file_name, expected_validation_error, expected_len",
