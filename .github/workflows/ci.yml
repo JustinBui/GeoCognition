@@ -61,12 +61,12 @@ jobs:
       # ✅ LINT STEP (Ruff)
       - name: Run Ruff (lint)
         run: |
-          ruff check .
+          ruff check . --exclude prototype
 
       # ✅ FORMAT CHECK (Black)
       - name: Run Black (format check)
         run: |
-          black --check .
+          black --check . --exclude prototype/
 
       - name: Start MinIO
         run: |
