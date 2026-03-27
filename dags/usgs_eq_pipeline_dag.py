@@ -1,17 +1,12 @@
 import io
 import json
-import os
 import logging
-from pathlib import Path
 import pendulum
 from airflow import DAG
 from airflow.sdk import task, get_current_context
 from airflow.providers.http.operators.http import HttpOperator
-from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.sdk.bases.operator import chain
-from minio import Minio
 import pandas as pd
-import numpy as np
 from include.common import (
     read_yaml,
     get_minio_client,
