@@ -16,15 +16,15 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16
+        image: postgis/postgis:16-3.4
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: earthquakes
+          POSTGRES_DB: geocog-postgres
         ports:
           - 5433:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d earthquakes"
+          --health-cmd "pg_isready -U postgres -d geocog-postgres"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 10
@@ -33,7 +33,7 @@ jobs:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
       AIRFLOW_CONN_USGS_API: http://earthquake.usgs.gov
-      AIRFLOW_CONN_USGS_POSTGRES_DB: postgresql://postgres:postgres@localhost:5433/earthquakes
+      AIRFLOW_CONN_GEOCOG_POSTGRES_DB: postgresql://postgres:postgres@localhost:5433/geocog-postgres
 
     steps:
       - name: Check out repository
@@ -81,7 +81,7 @@ jobs:
       - name: Wait for Postgres
         run: |
           for i in {1..30}; do
-            pg_isready -h localhost -p 5433 -U postgres -d earthquakes && exit 0
+            pg_isready -h localhost -p 5433 -U postgres -d geocog-postgres && exit 0
             sleep 2
           done
           echo "Postgres did not become ready in time."

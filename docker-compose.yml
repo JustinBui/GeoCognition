@@ -1,12 +1,12 @@
 version: '3'
 services:
   postgres:
-    image: postgres:16
+    image: postgis/postgis:16-3.4
     container_name: geocog-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: earthquakes
+      POSTGRES_DB: geocog-postgres
     ports:
       - "5433:5432"
     volumes:

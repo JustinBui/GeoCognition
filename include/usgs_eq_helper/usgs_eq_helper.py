@@ -1,3 +1,7 @@
+"""
+BUSINESS LOGIC HELPERS FOR USGS EARTHQUAKE PIPELINE
+"""
+
 import pandas as pd
 import numpy as np
 import json
@@ -73,3 +77,50 @@ def flatten_eq_json_to_df_helper(payload: dict, eq_columns: list[str]) -> pd.Dat
             df_features[col] = np.nan
 
     return df_features[eq_columns]
+
+
+def create_postgis_table_helper() -> tuple[str, str, str]:
+    """
+    Helper for create_postgis_table task
+        - Returns SQL statements to create the earthquakes table and spatial index
+    """
+    enable_postgis_sql = "CREATE EXTENSION IF NOT EXISTS postgis;"
+    create_table_sql = """
+    CREATE TABLE IF NOT EXISTS usgs_earthquakes (
+        id TEXT PRIMARY KEY,
+        mag DOUBLE PRECISION,
+        place TEXT,
+        time BIGINT,
+        updated BIGINT,
+        tz TEXT,
+        url TEXT,
+        detail TEXT,
+        felt DOUBLE PRECISION,
+        cdi DOUBLE PRECISION,
+        mmi DOUBLE PRECISION,
+        alert TEXT,
+        status TEXT,
+        tsunami INTEGER,
+        sig INTEGER,
+        net TEXT,
+        code TEXT,
+        ids TEXT,
+        sources TEXT,
+        product_types TEXT,
+        nst INTEGER,
+        dmin DOUBLE PRECISION,
+        rms DOUBLE PRECISION,
+        gap INTEGER,
+        magType TEXT,
+        seismic_event TEXT,
+        title TEXT,
+        longitude DOUBLE PRECISION,
+        latitude DOUBLE PRECISION,
+        depth_km DOUBLE PRECISION,
+        geom geometry(Point, 4326)
+    );
+    """
+    create_index_sql = """
+    CREATE INDEX IF NOT EXISTS idx_usgs_earthquakes_geom ON usgs_earthquakes USING GIST (geom);
+    """
+    return enable_postgis_sql, create_table_sql, create_index_sql

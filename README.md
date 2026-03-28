@@ -27,10 +27,10 @@ pip install -r requirements.txt
 MINIO_ACCESS_KEY="minio"
 MINIO_SECRET_KEY="minio123"
 AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
-AIRFLOW_CONN_USGS_POSTGRES_DB=postgresql://postgres:postgres@host.docker.internal:5433/earthquakes
+AIRFLOW_CONN_GEOCOG_POSTGRES_DB=postgresql://postgres:postgres@host.docker.internal:5433/geocog-postgres
 ```
 
-## Run Postgres + MinIO with Docker Compose
+## Run PostGIS + MinIO with Docker Compose
 
 From the project root, start both data services:
 
@@ -40,68 +40,39 @@ docker compose up -d
 
 This project compose file exposes:
 
-- Postgres on `localhost:5433` (container DB name: `earthquakes`)
+- PostGIS on `localhost:5433` (container DB name: `earthquakes`)
 - MinIO API on `localhost:9000`
 - MinIO Console on `localhost:9001`
 
-## First-Time Startup (From Scratch)
+## Starting Program
 
 Run these commands in order from the project root:
 
-1. Start data services (Postgres + MinIO)
+1. Start data services (PostGIS + MinIO)
 ```bash
 docker compose up -d
 ```
 
-2. Start Airflow with Astro
+2. Start Airflow with Astro. Astro CLI runs Airflow in its own Docker-managed stack (webserver, scheduler, triggerer, and metadata PostGIS).
 ```bash
 astro dev start
 ```
 
-3. Create the target table in Postgres (one time)
-```powershell
-Get-Content -Raw "include/config/create_usgs_earthquakes.sql" | docker exec -i geocog-postgres psql -U postgres -d earthquakes
-```
+3. On your browser, search up `http://localhost:8080`
 
-4. Verify table creation
-```powershell
-docker exec -it geocog-postgres psql -U postgres -d earthquakes -c "\dt usgs_earthquakes"
-```
+## Stopping Program
 
-5. Open Airflow and trigger DAG `usgs_to_minio_daily_http_operator`
-   - Airflow: `http://localhost:8080`
-
-6. Verify rows were upserted
-```powershell
-docker exec -it geocog-postgres psql -U postgres -d earthquakes -c "select count(*) from usgs_earthquakes;"
-```
-
-## Running Astro Airflow Locally (Subsequent runs after first time startup)
-
-Astro CLI runs Airflow in its own Docker-managed stack (webserver, scheduler, triggerer, and metadata Postgres).
-
-1. Start Airflow:
-```bash
-astro dev start
-```
-
-2. Then go to `localhost:8080`
-
-3. If restarting Astro:
+1. To stop Astro:
 ```bash
 astro dev stop
-astro dev start
 ```
 
-4. Hard restarting Astro (Deleting all metadata)
-
-```
-astro dev stop
-astro dev kill
-astro dev start
+2. To stop PostGIS + MinIO
+```bash
+docker compose down
 ```
 
-## Reset and Rebuild Local Environment
+## Stopping Program (Deleting all data)
 
 Use this when you want a clean local restart.
 
@@ -110,7 +81,7 @@ Use this when you want a clean local restart.
 astro dev kill
 ```
 
-2. Stop and remove Compose services and volumes
+2. Stop and remove compose services and volumes
 ```bash
 docker compose down -v
 ```

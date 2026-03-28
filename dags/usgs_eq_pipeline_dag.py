@@ -4,6 +4,7 @@ import logging
 import pendulum
 from airflow import DAG
 from airflow.sdk import task, get_current_context
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.http.operators.http import HttpOperator
 from airflow.sdk.bases.operator import chain
 import pandas as pd
@@ -17,6 +18,7 @@ from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS_ORIGINAL
 from include.usgs_eq_helper import (
     validate_eq_payload_helper,
     flatten_eq_json_to_df_helper,
+    create_postgis_table_helper,
 )
 
 cfg = read_yaml(CONFIG_FILE_PATH)
@@ -154,64 +156,33 @@ def upload_flattened_eq_to_minio(df: pd.DataFrame) -> str:
     return parquet_object_path
 
 
+@task(task_id="create_postgis_table")
+def create_postgis_table() -> None:
+    """
+    Creates the usgs_earthquakes table in PostGIS if it does not exist.
+    Includes a geometry column for spatial data.
+    """
+    enable_postgis_sql, create_table_sql, create_index_sql = (
+        create_postgis_table_helper()
+    )
+
+    hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
+    with hook.get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute(enable_postgis_sql)
+            cur.execute(create_table_sql)
+            cur.execute(create_index_sql)
+    logger.info("Ensured usgs_earthquakes table and spatial index exist in PostGIS.")
+
+
 @task(task_id="load_eq_to_postgres")
 def load_eq_to_postgres(parquet_object_path: str) -> None:
-    return None
-
     """
     Reads the curated Parquet from MinIO and upserts into Postgres.
     Uses ON CONFLICT (id) DO UPDATE so the task is safe to rerun.
     Requires a table created with the DDL in include/config/create_usgs_earthquakes.sql.
     """
-    # import psycopg2.extras
-
-    # context = get_current_context()
-    # ds = context["ds"]
-
-    # client = get_minio_client()
-    # response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
-    # try:
-    #     parquet_bytes = response.read()
-    # finally:
-    #     response.close()
-    #     response.release_conn()
-
-    # df = pd.read_parquet(io.BytesIO(parquet_bytes), engine="pyarrow")
-    # if df.empty:
-    #     logger.info("No earthquake data to load for %s — skipping Postgres upsert", ds)
-    #     return
-
-    # # Normalize integer-like columns to nullable Int64 to avoid float->bigint
-    # # coercion issues when pandas upcasts due to missing values.
-    # for col in ["time", "updated", "tsunami", "sig"]:
-    #     if col in df.columns:
-    #         df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
-
-    # # Keep only expected source columns, then rename to SQL-safe names.
-    # for col in EQ_COLUMNS_ORIGINAL:
-    #     if col not in df.columns:
-    #         df[col] = pd.NA
-    # df = df[EQ_COLUMNS_ORIGINAL].rename(columns=_PG_COL_RENAME)
-
-    # # psycopg2 needs Python None, not numpy NaN / pandas NA
-    # df = df.where(pd.notna(df), other=None)
-
-    # pg_cols = list(df.columns)
-    # col_str = ", ".join(f'"{c}"' for c in pg_cols)
-    # update_str = ", ".join(f'"{c}" = EXCLUDED."{c}"' for c in pg_cols if c != "id")
-    # sql = (
-    #     f'INSERT INTO usgs_earthquakes ({col_str}) VALUES %s '
-    #     f'ON CONFLICT (id) DO UPDATE SET {update_str}'
-    # )
-
-    # rows = [tuple(row) for row in df.itertuples(index=False, name=None)]
-
-    # hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
-    # conn = hook.get_conn()
-    # with conn:
-    #     with conn.cursor() as cur:
-    #         psycopg2.extras.execute_values(cur, sql, rows)
-    # logger.info("Upserted %d earthquake records into Postgres for %s", len(df), ds)
+    return None
 
 
 with DAG(
@@ -250,6 +221,7 @@ with DAG(
     upload_flattened_eq_to_minio_task = upload_flattened_eq_to_minio(
         rename_df_columns_task
     )
+    create_postgis_table_task = create_postgis_table()
     load_eq_to_postgres_task = load_eq_to_postgres(upload_flattened_eq_to_minio_task)
 
     # DAG structure
@@ -260,5 +232,6 @@ with DAG(
         flatten_eq_json_to_df_task,
         rename_df_columns_task,
         upload_flattened_eq_to_minio_task,
+        create_postgis_table_task,
         load_eq_to_postgres_task,
     )
