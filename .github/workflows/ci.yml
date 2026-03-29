@@ -35,6 +35,9 @@ jobs:
       AIRFLOW_CONN_USGS_API: http://earthquake.usgs.gov
       AIRFLOW_CONN_GEOCOG_POSTGRES_DB: postgresql://postgres:postgres@localhost:5433/geocog-postgres
 
+      # Prevent Airflow from loading example DAGs that require extra dependencies
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
