@@ -1,4 +1,4 @@
-# To run this file, be inside of your root directory. Then run
+# To run this file individually, be inside of your root directory. Then run
 #       pytest tests/test_usgs_eq_pipeline.py -q
 
 import json

@@ -39,6 +39,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set Airflow home
+        run: echo "AIRFLOW_HOME=${{ github.workspace }}/.airflow" >> $GITHUB_ENV
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -57,6 +60,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install ruff black
+
+      # ✅ Initialize Airflow DB
+      - name: Initialize Airflow metadata DB
+        run: |
+          airflow db upgrade
 
       # ✅ LINT STEP (Ruff)
       - name: Run Ruff (lint)
