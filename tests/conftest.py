@@ -8,7 +8,9 @@ def mock_minio_client(monkeypatch):
 
     # Default behaviors
     mock_client.bucket_exists.return_value = True
-    mock_client.get_object.return_value.read.return_value = b'{"type":"FeatureCollection","features":[]}'
+    mock_client.get_object.return_value.read.return_value = (
+        b'{"type":"FeatureCollection","features":[]}'
+    )
     mock_client.get_object.return_value.close.return_value = None
     mock_client.get_object.return_value.release_conn.return_value = None
 

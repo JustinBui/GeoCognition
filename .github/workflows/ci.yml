@@ -64,7 +64,7 @@ jobs:
       # ✅ Initialize Airflow DB
       - name: Initialize Airflow metadata DB
         run: |
-          airflow db upgrade
+          airflow db migrate
 
       # ✅ LINT STEP (Ruff)
       - name: Run Ruff (lint)
