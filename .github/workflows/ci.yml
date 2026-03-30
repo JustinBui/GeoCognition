@@ -6,7 +6,6 @@ on:
       - main
       - develop
       - "feature/**"
-      AIRFLOW__CORE__DAGS_FOLDER: '${{ github.workspace }}/dags'
   pull_request:
     branches:
       - main
@@ -35,7 +34,7 @@ jobs:
       MINIO_SECRET_KEY: minio123
       AIRFLOW_CONN_USGS_API: http://earthquake.usgs.gov
       AIRFLOW_CONN_GEOCOG_POSTGRES_DB: postgresql://postgres:postgres@localhost:5433/geocog-postgres
-
+      AIRFLOW__CORE__DAGS_FOLDER: '${{ github.workspace }}/dags'
       # Prevent Airflow from loading example DAGs that require extra dependencies
       AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
 
