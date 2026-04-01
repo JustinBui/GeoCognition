@@ -2,6 +2,8 @@ import io
 import json
 import logging
 import pendulum
+import pyarrow.parquet as pq
+import numpy as np
 from airflow import DAG
 from airflow.sdk import task, get_current_context
 from airflow.providers.postgres.hooks.postgres import PostgresHook
@@ -14,7 +16,7 @@ from include.common import (
     get_partition_path,
     dataframe_to_parquet_bytes,
 )
-from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS_ORIGINAL
+from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS_ORIGINAL, EQ_COLUMNS_RENAMED
 from include.usgs_eq_helper import (
     validate_eq_payload_helper,
     flatten_eq_json_to_df_helper,
@@ -182,7 +184,44 @@ def load_eq_to_postgres(parquet_object_path: str) -> None:
     Uses ON CONFLICT (id) DO UPDATE so the task is safe to rerun.
     Requires a table created with the DDL in include/config/create_usgs_earthquakes.sql.
     """
-    return None
+    # Download Parquet from MinIO
+    client = get_minio_client()
+    response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
+    try:
+        parquet_bytes = response.read()
+    finally:
+        response.close()
+        response.release_conn()
+
+    # Load DataFrame
+    table = pq.read_table(io.BytesIO(parquet_bytes))
+    df = table.to_pandas()
+
+    # Upsert into Postgres
+    hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
+    with hook.get_conn() as conn:
+        with conn.cursor() as cur:
+            for _, row in df.iterrows():
+                # Prepare geometry WKT
+                if not (np.isnan(row["longitude"]) or np.isnan(row["latitude"])):
+                    geom_wkt = f"SRID=4326;POINT({row['longitude']} {row['latitude']})"
+                else:
+                    geom_wkt = None
+                values = [row.get(col) for col in EQ_COLUMNS_RENAMED]
+                # Build upsert SQL
+                sql = f"""
+                INSERT INTO usgs_earthquakes (
+                    {', '.join(EQ_COLUMNS_RENAMED)}, geom
+                ) VALUES (
+                    {', '.join(['%s'] * len(EQ_COLUMNS_RENAMED))}, ST_GeomFromText(%s, 4326)
+                )
+                ON CONFLICT (id) DO UPDATE SET
+                    {', '.join([f'{col}=EXCLUDED.{col}' for col in EQ_COLUMNS_RENAMED])},
+                    geom=EXCLUDED.geom;
+                """
+                cur.execute(sql, values + [geom_wkt])
+        conn.commit()
+    logger.info(f"Upserted {len(df)} rows into usgs_earthquakes table in Postgres.")
 
 
 with DAG(

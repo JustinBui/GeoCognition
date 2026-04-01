@@ -99,6 +99,9 @@ ruff check . --fix --exclude prototype
 # Fixes formatting (style only, not logic)
 black .
 
-# Unit testing
+# Go into astro bash
+astro dev bash
+
+# Unit testing (See if all tests passed)
 pytest 
 ```
