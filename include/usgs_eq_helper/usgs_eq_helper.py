@@ -124,3 +124,20 @@ def create_postgis_table_helper() -> tuple[str, str, str]:
     CREATE INDEX IF NOT EXISTS idx_usgs_earthquakes_geom ON usgs_earthquakes USING GIST (geom);
     """
     return enable_postgis_sql, create_table_sql, create_index_sql
+
+
+def load_eq_to_postgres_helper(eq_columns_renamed: list[str]) -> str:
+    """
+    Helper for load_eq_to_postgres task
+        - Returns the parameterised upsert SQL for the usgs_earthquakes table
+    """
+    return f"""
+    INSERT INTO usgs_earthquakes (
+        {', '.join(eq_columns_renamed)}, geom
+    ) VALUES (
+        {', '.join(['%s'] * len(eq_columns_renamed))}, ST_GeomFromText(%s, 4326)
+    )
+    ON CONFLICT (id) DO UPDATE SET
+        {', '.join([f'{col}=EXCLUDED.{col}' for col in eq_columns_renamed])},
+        geom=EXCLUDED.geom;
+    """

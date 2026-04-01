@@ -30,10 +30,11 @@ AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
 AIRFLOW_CONN_GEOCOG_POSTGRES_DB=postgresql://postgres:postgres@host.docker.internal:5433/geocog-postgres
 ```
 
-## Run PostGIS + MinIO with Docker Compose
+## Starting Program
 
-From the project root, start both data services:
+Run these commands in order from the project root:
 
+1. Start data services (PostGIS + MinIO)
 ```bash
 docker compose up -d
 ```
@@ -43,15 +44,6 @@ This project compose file exposes:
 - PostGIS on `localhost:5433` (container DB name: `earthquakes`)
 - MinIO API on `localhost:9000`
 - MinIO Console on `localhost:9001`
-
-## Starting Program
-
-Run these commands in order from the project root:
-
-1. Start data services (PostGIS + MinIO)
-```bash
-docker compose up -d
-```
 
 2. Start Airflow with Astro. Astro CLI runs Airflow in its own Docker-managed stack (webserver, scheduler, triggerer, and metadata PostGIS).
 ```bash

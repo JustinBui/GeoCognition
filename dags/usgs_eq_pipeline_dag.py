@@ -21,6 +21,7 @@ from include.usgs_eq_helper import (
     validate_eq_payload_helper,
     flatten_eq_json_to_df_helper,
     create_postgis_table_helper,
+    load_eq_to_postgres_helper,
 )
 
 cfg = read_yaml(CONFIG_FILE_PATH)
@@ -198,6 +199,7 @@ def load_eq_to_postgres(parquet_object_path: str) -> None:
     df = table.to_pandas()
 
     # Upsert into Postgres
+    upsert_sql = load_eq_to_postgres_helper(EQ_COLUMNS_RENAMED)
     hook = PostgresHook(postgres_conn_id=POSTGRES_CONN_ID)
     with hook.get_conn() as conn:
         with conn.cursor() as cur:
@@ -208,18 +210,7 @@ def load_eq_to_postgres(parquet_object_path: str) -> None:
                 else:
                     geom_wkt = None
                 values = [row.get(col) for col in EQ_COLUMNS_RENAMED]
-                # Build upsert SQL
-                sql = f"""
-                INSERT INTO usgs_earthquakes (
-                    {', '.join(EQ_COLUMNS_RENAMED)}, geom
-                ) VALUES (
-                    {', '.join(['%s'] * len(EQ_COLUMNS_RENAMED))}, ST_GeomFromText(%s, 4326)
-                )
-                ON CONFLICT (id) DO UPDATE SET
-                    {', '.join([f'{col}=EXCLUDED.{col}' for col in EQ_COLUMNS_RENAMED])},
-                    geom=EXCLUDED.geom;
-                """
-                cur.execute(sql, values + [geom_wkt])
+                cur.execute(upsert_sql, values + [geom_wkt])
         conn.commit()
     logger.info(f"Upserted {len(df)} rows into usgs_earthquakes table in Postgres.")
 
