@@ -7,6 +7,7 @@ from .common import (
     get_partition_path,
     to_list,
     dataframe_to_parquet_bytes,
+    upload_file_to_minio,
 )
 
 __all__ = [
@@ -18,4 +19,5 @@ __all__ = [
     "get_partition_path",
     "to_list",
     "dataframe_to_parquet_bytes",
+    "upload_file_to_minio",
 ]

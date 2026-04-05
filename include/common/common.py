@@ -11,6 +11,9 @@ import logging
 import pendulum
 import json
 import numpy as np
+from typing import Union
+
+logger = logging.getLogger(__name__)
 
 
 def read_yaml(path_to_yaml: Path, verbose=True) -> ConfigBox:
@@ -103,21 +106,53 @@ def get_partition_path(ds: str, filename: str) -> str:
     return f"year={dt:%Y}/month={dt:%m}/day={dt:%d}/{filename}"
 
 
-# def upload_file_to_minio(
-#     local_file_path: str,
-#     bucket_name: str,
-#     object_name: str,
-# ) -> None:
-#     """
-#     Upload a local file to MinIO.
-#     """
-#     client = get_minio_client()
-#     ensure_bucket_exists(client, bucket_name)
+def upload_file_to_minio(
+    context: dict,
+    bucket_name: str,
+    data_object: Union[dict, pd.DataFrame],
+    data_content_type: str,
+) -> str:
+    """
+    Helper to upload a file (dict or DataFrame) to MinIO with a partitioned path based on the execution date.
+    """
 
-#     client.fput_object(
-#         bucket_name=bucket_name,
-#         object_name=object_name,
-#         file_path=local_file_path,
-#     )
+    # Creating bucket
+    client = get_minio_client()
+    if not client.bucket_exists(bucket_name):
+        client.make_bucket(bucket_name)
 
-#     print(f"Uploaded {local_file_path} to s3://{bucket_name}/{object_name}")
+    ds = context["ds"]  # e.g. 2025-01-01
+    start_dt = context["data_interval_start"]
+    start_ts = start_dt.strftime(
+        "%Y-%m-%dT%H:%M:%S"
+    )  # Midnight of the day (e.g. 2025-01-01T00:00:00)
+    end_ts = start_dt.end_of("day").strftime(
+        "%Y-%m-%dT%H:%M:%S"
+    )  # End of the day (e.g. 2025-01-01T23:59:59)
+
+    object_path = get_partition_path(
+        ds, f"{start_ts} to {end_ts} raw.json"
+    )  # e.g. year=2025/month=01/day=01/2025-01-01T00:00:00 to 2025-01-02T00:00:00_raw.json
+
+    # Check if object already exists
+    found = False
+    try:
+        client.stat_object(bucket_name, object_path)
+        found = True
+    except Exception:
+        found = False
+
+    if found:
+        logger.info(
+            f"Raw object already exists at {bucket_name}/{object_path}, skipping upload."
+        )
+    else:
+        client.put_object(
+            bucket_name=bucket_name,
+            object_name=object_path,
+            data=io.BytesIO(data_object),
+            length=len(data_object),
+            content_type=data_content_type,
+        )
+        logger.info(f"Uploaded raw USGS JSON to MinIO at {bucket_name}/{object_path}")
+    return object_path

@@ -13,8 +13,8 @@ import pandas as pd
 from include.common import (
     read_yaml,
     get_minio_client,
-    get_partition_path,
     dataframe_to_parquet_bytes,
+    upload_file_to_minio,
 )
 from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS_ORIGINAL, EQ_COLUMNS_RENAMED
 from include.usgs_eq_helper import (
@@ -62,29 +62,8 @@ def upload_raw_eq_json_to_minio(raw_json_text: str) -> str:
     Uploads the validated raw JSON payload to MinIO.
     """
     context = get_current_context()
-    ds = context["ds"]  # e.g. 2025-01-01
-    raw_object_path = get_partition_path(
-        ds, "raw.json"
-    )  # e.g. year=2025/month=01/day=01/raw.json
     payload = raw_json_text.encode("utf-8")
-
-    client = get_minio_client()
-
-    if not client.bucket_exists(RAW_BUCKET_NAME):
-        client.make_bucket(RAW_BUCKET_NAME)
-
-    client.put_object(
-        bucket_name=RAW_BUCKET_NAME,
-        object_name=raw_object_path,
-        data=io.BytesIO(payload),
-        length=len(payload),
-        content_type="application/json",
-    )
-
-    logger.info(
-        f"Uploaded raw USGS JSON to MinIO at {RAW_BUCKET_NAME}/{raw_object_path}"
-    )
-    return raw_object_path
+    return upload_file_to_minio(context, RAW_BUCKET_NAME, payload, "application/json")
 
 
 @task(task_id="flatten_eq_json_to_df")
@@ -137,26 +116,10 @@ def upload_flattened_eq_to_minio(df: pd.DataFrame) -> str:
     Uploads the flattened DataFrame as Parquet to MinIO
     """
     context = get_current_context()
-    ds = context["ds"]
-    parquet_object_path = get_partition_path(ds, "flattened.parquet")
-
-    client = get_minio_client()
-    if not client.bucket_exists(CURATED_BUCKET_NAME):
-        client.make_bucket(CURATED_BUCKET_NAME)
-
     data = dataframe_to_parquet_bytes(df)
-
-    client.put_object(
-        bucket_name=CURATED_BUCKET_NAME,
-        object_name=parquet_object_path,
-        data=io.BytesIO(data),
-        length=len(data),
-        content_type="application/octet-stream",
+    return upload_file_to_minio(
+        context, CURATED_BUCKET_NAME, data, "application/octet-stream"
     )
-    logger.info(
-        f"Uploaded flattened USGS DataFrame to MinIO at {CURATED_BUCKET_NAME}/{parquet_object_path}"
-    )
-    return parquet_object_path
 
 
 @task(task_id="create_postgis_table")
@@ -231,7 +194,7 @@ with DAG(
         data={
             "format": "geojson",
             "starttime": "{{ data_interval_start.strftime('%Y-%m-%dT%H:%M:%S') }}",
-            "endtime": "{{ (data_interval_start + macros.timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S') }}",
+            "endtime": "{{ data_interval_start.strftime('%Y-%m-%d') }}T23:59:59",
             "minmagnitude": "2.5",
             "orderby": "time-asc",
             "limit": "20000",
