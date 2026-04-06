@@ -14,7 +14,10 @@ from include.common import (
     read_yaml,
     get_minio_client,
     dataframe_to_parquet_bytes,
+    minio_object_exists,
     upload_file_to_minio,
+    get_object_path,
+    ensure_bucket_exists,
 )
 from include.constants import CONFIG_FILE_PATH, EQ_COLUMNS_ORIGINAL, EQ_COLUMNS_RENAMED
 from include.usgs_eq_helper import (
@@ -29,6 +32,7 @@ RAW_BUCKET_NAME = cfg.storage.eq_raw_bucket_name
 CURATED_BUCKET_NAME = cfg.storage.eq_curated_bucket_name
 POSTGRES_CONN_ID = cfg.postgres.conn_id
 logger = logging.getLogger(__name__)
+client = get_minio_client()
 
 # Maps EQ_COLUMNS_ORIGINAL dot-notation names → valid Postgres column names.
 # Top-level GeoJSON "type" ("Feature") and properties.type ("earthquake") would
@@ -61,9 +65,29 @@ def upload_raw_eq_json_to_minio(raw_json_text: str) -> str:
     """
     Uploads the validated raw JSON payload to MinIO.
     """
+    ensure_bucket_exists(
+        client, RAW_BUCKET_NAME
+    )  # Ensure the raw bucket exists before attempting upload
+
     context = get_current_context()
-    payload = raw_json_text.encode("utf-8")
-    return upload_file_to_minio(context, RAW_BUCKET_NAME, payload, "application/json")
+    object_path = get_object_path(context, "raw", "json")
+
+    # Check if object path in MinIO exists
+    exists = minio_object_exists(client, RAW_BUCKET_NAME, object_path)
+    if exists:
+        logger.info(
+            f"Raw object already exists at {RAW_BUCKET_NAME}/{object_path}, skipping upload."
+        )
+    else:
+        payload = raw_json_text.encode("utf-8")
+        upload_file_to_minio(
+            client, RAW_BUCKET_NAME, object_path, payload, "application/json"
+        )
+        logger.info(
+            f"Uploaded raw USGS JSON to MinIO at {RAW_BUCKET_NAME}/{object_path}"
+        )
+
+    return object_path
 
 
 @task(task_id="flatten_eq_json_to_df")
@@ -71,7 +95,6 @@ def flatten_eq_json_to_df(raw_object_path: str) -> pd.DataFrame:
     """
     Flattens the raw JSON payload and returns a DataFrame
     """
-    client = get_minio_client()
     response = client.get_object(
         RAW_BUCKET_NAME, raw_object_path
     )  # Pulling JSON from MinIO
@@ -115,11 +138,31 @@ def upload_flattened_eq_to_minio(df: pd.DataFrame) -> str:
     """
     Uploads the flattened DataFrame as Parquet to MinIO
     """
+    ensure_bucket_exists(client, CURATED_BUCKET_NAME)
+
     context = get_current_context()
-    data = dataframe_to_parquet_bytes(df)
-    return upload_file_to_minio(
-        context, CURATED_BUCKET_NAME, data, "application/octet-stream"
-    )
+    object_path = get_object_path(context, "flattened", "parquet")
+
+    exists = minio_object_exists(client, CURATED_BUCKET_NAME, object_path)
+    if exists:
+        logger.info(
+            f"Flattened object already exists at {CURATED_BUCKET_NAME}/{object_path}, skipping upload."
+        )
+        return "EXISTS"
+    else:
+        parquet_bytes = dataframe_to_parquet_bytes(df)
+        upload_file_to_minio(
+            client,
+            CURATED_BUCKET_NAME,
+            object_path,
+            parquet_bytes,
+            "application/octet-stream",
+        )
+        logger.info(
+            f"Uploaded flattened DataFrame as Parquet to MinIO at {CURATED_BUCKET_NAME}/{object_path}"
+        )
+
+        return object_path
 
 
 @task(task_id="create_postgis_table")
@@ -148,8 +191,13 @@ def load_eq_to_postgres(parquet_object_path: str) -> None:
     Uses ON CONFLICT (id) DO UPDATE so the task is safe to rerun.
     Requires a table created with the DDL in include/config/create_usgs_earthquakes.sql.
     """
+    if parquet_object_path == "EXISTS":
+        logger.info(
+            f"Data from {CURATED_BUCKET_NAME}/{parquet_object_path} already loaded, skipping load to Postgres."
+        )
+        return
+
     # Download Parquet from MinIO
-    client = get_minio_client()
     response = client.get_object(CURATED_BUCKET_NAME, parquet_object_path)
     try:
         parquet_bytes = response.read()
@@ -181,8 +229,8 @@ def load_eq_to_postgres(parquet_object_path: str) -> None:
 with DAG(
     dag_id="usgs_to_minio_daily_http_operator",
     start_date=pendulum.datetime(2026, 1, 1, tz="UTC"),
-    schedule="@daily",  # run at the top of every day, pulling yesterday's data at 00:00 UTC
-    catchup=False,
+    schedule="@daily",  # Run everyday at midnight, but pulling data from PREVIOUS day
+    catchup=True,
     max_active_runs=1,
     tags=["usgs", "minio", "raw"],
 ) as dag:
@@ -193,8 +241,9 @@ with DAG(
         endpoint="fdsnws/event/1/query",
         data={
             "format": "geojson",
-            "starttime": "{{ data_interval_start.strftime('%Y-%m-%dT%H:%M:%S') }}",
-            "endtime": "{{ data_interval_start.strftime('%Y-%m-%d') }}T23:59:59",
+            # Normalize to full-day window even for manual runs.
+            "starttime": "{{ data_interval_start.start_of('day').strftime('%Y-%m-%dT%H:%M:%S') }}",
+            "endtime": "{{ data_interval_start.end_of('day').strftime('%Y-%m-%dT%H:%M:%S') }}",
             "minmagnitude": "2.5",
             "orderby": "time-asc",
             "limit": "20000",

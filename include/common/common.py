@@ -8,7 +8,6 @@ from pathlib import Path
 from include.constants import CONFIG_FILE_PATH
 from minio import Minio
 import logging
-import pendulum
 import json
 import numpy as np
 from typing import Union
@@ -40,13 +39,6 @@ def create_directories(path_to_directories: list, verbose=True) -> None:
         os.makedirs(path, exist_ok=True)
         if verbose:
             logging.info(f"created directory at: {path}")
-
-
-def debug_context(**context) -> None:
-    logging.info("Context keys: %s", sorted(context.keys()))
-    logging.info("ds=%s", context.get("ds"))
-    logging.info("data_interval_start=%s", context.get("data_interval_start"))
-    logging.info("data_interval_end=%s", context.get("data_interval_end"))
 
 
 def to_list(v):
@@ -98,41 +90,35 @@ def ensure_bucket_exists(client: Minio, bucket_name: str) -> None:
         client.make_bucket(bucket_name)
 
 
-def get_partition_path(ds: str, filename: str) -> str:
+def get_object_path(context: dict, postfix: str, filetype: str) -> str:
     """
     Helper for building partitioned object paths in MinIO based on the execution date (ds) and filename.
-    """
-    dt = pendulum.parse(ds, tz="UTC")
-    return f"year={dt:%Y}/month={dt:%m}/day={dt:%d}/{filename}"
-
-
-def upload_file_to_minio(
-    context: dict,
-    bucket_name: str,
-    data_object: Union[dict, pd.DataFrame],
-    data_content_type: str,
-) -> str:
-    """
-    Helper to upload a file (dict or DataFrame) to MinIO with a partitioned path based on the execution date.
+     - postfix can be a one more description of the file (e.g. "raw_usgs_eq_data") to make it more identifiable in MinIO
+     - filetype can be ".json" or ".parquet" depending on the data format being uploaded into MinIO
     """
 
-    # Creating bucket
-    client = get_minio_client()
-    if not client.bucket_exists(bucket_name):
-        client.make_bucket(bucket_name)
-
-    ds = context["ds"]  # e.g. 2025-01-01
-    start_dt = context["data_interval_start"]
+    start_dt = context["data_interval_start"].start_of("day")
     start_ts = start_dt.strftime(
-        "%Y-%m-%dT%H:%M:%S"
+        "%H:%M:%S"
     )  # Midnight of the day (e.g. 2025-01-01T00:00:00)
     end_ts = start_dt.end_of("day").strftime(
-        "%Y-%m-%dT%H:%M:%S"
+        "%H:%M:%S"
     )  # End of the day (e.g. 2025-01-01T23:59:59)
 
-    object_path = get_partition_path(
-        ds, f"{start_ts} to {end_ts} raw.json"
-    )  # e.g. year=2025/month=01/day=01/2025-01-01T00:00:00 to 2025-01-02T00:00:00_raw.json
+    return f"year={start_dt:%Y}/month={start_dt:%m}/day={start_dt:%d}/{start_ts}_to_{end_ts}_{postfix}.{filetype}"
+
+
+def minio_object_exists(
+    client: Minio,
+    bucket_name: str,
+    object_path: str,
+) -> bool:
+    """
+    Validates and uploads a data object (dict or DataFrame) to MinIO at the specified bucket and object path.
+    """
+    # Creating bucket
+    if not client.bucket_exists(bucket_name):
+        client.make_bucket(bucket_name)
 
     # Check if object already exists
     found = False
@@ -142,17 +128,27 @@ def upload_file_to_minio(
     except Exception:
         found = False
 
-    if found:
-        logger.info(
-            f"Raw object already exists at {bucket_name}/{object_path}, skipping upload."
-        )
-    else:
-        client.put_object(
-            bucket_name=bucket_name,
-            object_name=object_path,
-            data=io.BytesIO(data_object),
-            length=len(data_object),
-            content_type=data_content_type,
-        )
-        logger.info(f"Uploaded raw USGS JSON to MinIO at {bucket_name}/{object_path}")
-    return object_path
+    return found
+
+
+def upload_file_to_minio(
+    client: Minio,
+    bucket_name: str,
+    object_path: str,
+    data_object: Union[dict, pd.DataFrame],
+    data_content_type: str,
+) -> None:
+    """
+    Uploads a data object (dict or DataFrame) to MinIO at the specified bucket and object path.
+    """
+    client = get_minio_client()
+    if not client.bucket_exists(bucket_name):
+        client.make_bucket(bucket_name)
+
+    client.put_object(
+        bucket_name=bucket_name,
+        object_name=object_path,
+        data=io.BytesIO(data_object),
+        length=len(data_object),
+        content_type=data_content_type,
+    )

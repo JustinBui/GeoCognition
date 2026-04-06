@@ -1,0 +1,4142 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1775424474000,
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2026-01-01T00%3A00%3A00&endtime=2026-01-01T23%3A59%3A00&minmagnitude=2.5&orderby=time-asc&limit=20000",
+    "title": "USGS Earthquakes",
+    "status": 200,
+    "api": "2.4.0",
+    "limit": 20000,
+    "offset": 1
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "100 km N of Yakutat, Alaska",
+        "time": 1767225782325,
+        "updated": 1769752561040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlt7",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlt7&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.087,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 158,
+        "net": "us",
+        "code": "7000rlt7",
+        "ids": ",ak2026aaacps,us7000rlt7,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 37,
+        "dmin": 0.467,
+        "rms": 0.81,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.2 - 100 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.6346,
+          60.4463,
+          5
+        ]
+      },
+      "id": "us7000rlt7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.9,
+        "place": "262 km SE of Chiniak, Alaska",
+        "time": 1767228386988,
+        "updated": 1769753068040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlt9",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlt9&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 0,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 234,
+        "net": "us",
+        "code": "7000rlt9",
+        "ids": ",ak2026aaboig,us7000rlt9,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 44,
+        "dmin": 2.59,
+        "rms": 0.57,
+        "gap": 144,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 3.9 - 262 km SE of Chiniak, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -148.7003,
+          56.3007,
+          10
+        ]
+      },
+      "id": "us7000rlt9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.5,
+        "place": "South Sandwich Islands region",
+        "time": 1767230720926,
+        "updated": 1769211574040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrd6",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrd6&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 312,
+        "net": "us",
+        "code": "7000rrd6",
+        "ids": ",us7000rrd6,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 22,
+        "dmin": 5.119,
+        "rms": 1,
+        "gap": 178,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.5 - South Sandwich Islands region"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -28.1811,
+          -56.177,
+          118.207
+        ]
+      },
+      "id": "us7000rrd6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 6,
+        "place": "southeast Indian Ridge",
+        "time": 1767232381809,
+        "updated": 1769213112232,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rltg",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rltg&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 0,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 554,
+        "net": "us",
+        "code": "7000rltg",
+        "ids": ",usauto7000rltg,at00t85x8g,us7000rltg,",
+        "sources": ",usauto,at,us,",
+        "types": ",internal-moment-tensor,internal-origin,losspager,moment-tensor,origin,phase-data,shakemap,",
+        "nst": 67,
+        "dmin": 17.24,
+        "rms": 0.66,
+        "gap": 45,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 6.0 - southeast Indian Ridge"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          96.3592,
+          -45.6117,
+          10
+        ]
+      },
+      "id": "us7000rltg"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "100 km N of Yakutat, Alaska",
+        "time": 1767232755761,
+        "updated": 1769213044040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rltf",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rltf&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rltf",
+        "ids": ",us7000rltf,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 23,
+        "dmin": 0.439,
+        "rms": 0.98,
+        "gap": 91,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 100 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.7327,
+          60.4491,
+          5
+        ]
+      },
+      "id": "us7000rltf"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.6,
+        "place": "168 km SSE of Vilyuchinsk, Russia",
+        "time": 1767233579818,
+        "updated": 1769213465040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rltk",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rltk&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 326,
+        "net": "us",
+        "code": "7000rltk",
+        "ids": ",us7000rltk,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 40,
+        "dmin": 1.872,
+        "rms": 0.88,
+        "gap": 137,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.6 - 168 km SSE of Vilyuchinsk, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159.3017,
+          51.5185,
+          46.115
+        ]
+      },
+      "id": "us7000rltk"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.4,
+        "place": "Kermadec Islands region",
+        "time": 1767234904713,
+        "updated": 1769218848040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrde",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrde&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 298,
+        "net": "us",
+        "code": "7000rrde",
+        "ids": ",us7000rrde,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 22,
+        "dmin": 5.882,
+        "rms": 0.74,
+        "gap": 233,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.4 - Kermadec Islands region"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -179.5301,
+          -31.9426,
+          203.795
+        ]
+      },
+      "id": "us7000rrde"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.5,
+        "place": "southeast Indian Ridge",
+        "time": 1767235957859,
+        "updated": 1769220005040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrd4",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrd4&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 312,
+        "net": "us",
+        "code": "7000rrd4",
+        "ids": ",us7000rrd4,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 16,
+        "dmin": 27.841,
+        "rms": 0.88,
+        "gap": 134,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.5 - southeast Indian Ridge"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          96.1993,
+          -45.8324,
+          10
+        ]
+      },
+      "id": "us7000rrd4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.9,
+        "place": "216 km SE of Pondaguitan, Philippines",
+        "time": 1767236180920,
+        "updated": 1769221630040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rltp",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rltp&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 369,
+        "net": "us",
+        "code": "7000rltp",
+        "ids": ",us7000rltp,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 92,
+        "dmin": 2.014,
+        "rms": 0.72,
+        "gap": 47,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.9 - 216 km SE of Pondaguitan, Philippines"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.4925,
+          4.9101,
+          107.314
+        ]
+      },
+      "id": "us7000rltp"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5,
+        "place": "Banda Sea",
+        "time": 1767236726650,
+        "updated": 1771987939040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rltq",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rltq&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 3.246,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 385,
+        "net": "us",
+        "code": "7000rltq",
+        "ids": ",us7000rltq,",
+        "sources": ",us,",
+        "types": ",losspager,origin,phase-data,shakemap,",
+        "nst": 78,
+        "dmin": 1.985,
+        "rms": 0.57,
+        "gap": 48,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 5.0 - Banda Sea"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.939,
+          -6.52,
+          180.511
+        ]
+      },
+      "id": "us7000rltq"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5.3,
+        "place": "48 km W of San Antonio de los Cobres, Argentina",
+        "time": 1767241584045,
+        "updated": 1769225023356,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlu1",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlu1&format=geojson",
+        "felt": 1,
+        "cdi": 2,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 432,
+        "net": "us",
+        "code": "7000rlu1",
+        "ids": ",us7000rlu1,usauto7000rlu1,",
+        "sources": ",us,usauto,",
+        "types": ",dyfi,internal-moment-tensor,moment-tensor,origin,phase-data,",
+        "nst": 65,
+        "dmin": 1.795,
+        "rms": 0.97,
+        "gap": 46,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 5.3 - 48 km W of San Antonio de los Cobres, Argentina"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7939,
+          -24.2251,
+          181.147
+        ]
+      },
+      "id": "us7000rlu1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.2,
+        "place": "45 km WNW of Pante Makasar, Timor Leste",
+        "time": 1767243637532,
+        "updated": 1769324205040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdf",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdf&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 271,
+        "net": "us",
+        "code": "7000rrdf",
+        "ids": ",us7000rrdf,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 12,
+        "dmin": 0.717,
+        "rms": 0.49,
+        "gap": 122,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.2 - 45 km WNW of Pante Makasar, Timor Leste"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.9896,
+          -9.0882,
+          88.753
+        ]
+      },
+      "id": "us7000rrdf"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.9,
+        "place": "189 km SSE of Vilyuchinsk, Russia",
+        "time": 1767246436321,
+        "updated": 1769324497040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlue",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlue&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 369,
+        "net": "us",
+        "code": "7000rlue",
+        "ids": ",us7000rlue,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 87,
+        "dmin": 2.066,
+        "rms": 0.96,
+        "gap": 128,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.9 - 189 km SSE of Vilyuchinsk, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159.5163,
+          51.3733,
+          29.435
+        ]
+      },
+      "id": "us7000rlue"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.9,
+        "place": "147 km NNE of Agats, Indonesia",
+        "time": 1767247319223,
+        "updated": 1769324638040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlug",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlug&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 369,
+        "net": "us",
+        "code": "7000rlug",
+        "ids": ",us7000rlug,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 47,
+        "dmin": 2.861,
+        "rms": 0.68,
+        "gap": 64,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.9 - 147 km NNE of Agats, Indonesia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.4044,
+          -4.2358,
+          136.59
+        ]
+      },
+      "id": "us7000rlug"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.3,
+        "place": "33 km NW of Ashkāsham, Afghanistan",
+        "time": 1767248038023,
+        "updated": 1773304772040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlui",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlui&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 284,
+        "net": "us",
+        "code": "7000rlui",
+        "ids": ",us7000rlui,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 43,
+        "dmin": 1.749,
+        "rms": 0.44,
+        "gap": 196,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.3 - 33 km NW of Ashkāsham, Afghanistan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          71.2337,
+          36.8714,
+          108.673
+        ]
+      },
+      "id": "us7000rlui"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5.7,
+        "place": "111 km N of Yakutat, Alaska",
+        "time": 1767250014742,
+        "updated": 1769328010807,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rluk",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rluk&format=geojson",
+        "felt": 35,
+        "cdi": 3.8,
+        "mmi": 6.847,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 1,
+        "sig": 513,
+        "net": "us",
+        "code": "7000rluk",
+        "ids": ",at00t86au5,us7000rluk,usauto7000rluk,ak2026aanmpl,",
+        "sources": ",at,us,usauto,ak,",
+        "types": ",dyfi,ground-failure,impact-link,internal-moment-tensor,losspager,moment-tensor,origin,phase-data,shakemap,",
+        "nst": 516,
+        "dmin": 0.453,
+        "rms": 0.6,
+        "gap": 42,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 5.7 - 111 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0494,
+          60.5362,
+          5
+        ]
+      },
+      "id": "us7000rluk"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.7,
+        "place": "113 km N of Yakutat, Alaska",
+        "time": 1767250146280,
+        "updated": 1773305359340,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rluq",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rluq&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 5.557,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 340,
+        "net": "us",
+        "code": "7000rluq",
+        "ids": ",us7000rluq,ak2026aanonr,",
+        "sources": ",us,ak,",
+        "types": ",losspager,origin,phase-data,shakemap,",
+        "nst": 30,
+        "dmin": 0.478,
+        "rms": 0.82,
+        "gap": 98,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.7 - 113 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.001,
+          60.5558,
+          5
+        ]
+      },
+      "id": "us7000rluq"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.9,
+        "place": "109 km N of Yakutat, Alaska",
+        "time": 1767250260994,
+        "updated": 1769328283440,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlus",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlus&format=geojson",
+        "felt": 1,
+        "cdi": 2,
+        "mmi": 6.035,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 370,
+        "net": "us",
+        "code": "7000rlus",
+        "ids": ",ak2026aanqfc,us7000rlus,",
+        "sources": ",ak,us,",
+        "types": ",dyfi,ground-failure,losspager,origin,phase-data,shakemap,",
+        "nst": 56,
+        "dmin": 0.423,
+        "rms": 0.76,
+        "gap": 59,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.9 - 109 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0887,
+          60.5098,
+          5
+        ]
+      },
+      "id": "us7000rlus"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.2,
+        "place": "113 km N of Yakutat, Alaska",
+        "time": 1767250454435,
+        "updated": 1769328481849,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rluu",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rluu&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.739,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 271,
+        "net": "us",
+        "code": "7000rluu",
+        "ids": ",us7000rluu,ak2026aansyk,",
+        "sources": ",us,ak,",
+        "types": ",losspager,origin,phase-data,shakemap,",
+        "nst": 44,
+        "dmin": 0.47,
+        "rms": 0.69,
+        "gap": 64,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.2 - 113 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0238,
+          60.5503,
+          5
+        ]
+      },
+      "id": "us7000rluu"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5.3,
+        "place": "113 km NNW of Yakutat, Alaska",
+        "time": 1767250498529,
+        "updated": 1769330156111,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlum",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlum&format=geojson",
+        "felt": 6,
+        "cdi": 3.4,
+        "mmi": 6.113,
+        "alert": "green",
+        "status": "reviewed",
+        "tsunami": 1,
+        "sig": 434,
+        "net": "us",
+        "code": "7000rlum",
+        "ids": ",us7000rlum,at00t86b7q,ak2026aansvm,",
+        "sources": ",us,at,ak,",
+        "types": ",dyfi,ground-failure,impact-link,losspager,moment-tensor,origin,phase-data,shakemap,",
+        "nst": 248,
+        "dmin": 0.449,
+        "rms": 0.59,
+        "gap": 29,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 5.3 - 113 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1891,
+          60.5426,
+          5
+        ]
+      },
+      "id": "us7000rlum"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.3,
+        "place": "114 km N of Yakutat, Alaska",
+        "time": 1767250669269,
+        "updated": 1769329447040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvy",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvy&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 168,
+        "net": "us",
+        "code": "7000rlvy",
+        "ids": ",ak2026aanwcb,us7000rlvy,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,",
+        "nst": 18,
+        "dmin": 0.487,
+        "rms": 1.02,
+        "gap": 131,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.3 - 114 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0082,
+          60.566,
+          5
+        ]
+      },
+      "id": "us7000rlvy"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.5,
+        "place": "113 km N of Yakutat, Alaska",
+        "time": 1767250970855,
+        "updated": 1769329884118,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlw0",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlw0&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.082,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 188,
+        "net": "us",
+        "code": "7000rlw0",
+        "ids": ",ak2026aaoajq,us7000rlw0,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 27,
+        "dmin": 0.473,
+        "rms": 0.35,
+        "gap": 97,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.5 - 113 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.017,
+          60.5522,
+          5
+        ]
+      },
+      "id": "us7000rlw0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.1,
+        "place": "115 km NNW of Yakutat, Alaska",
+        "time": 1767251125862,
+        "updated": 1769330055040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlw1",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlw1&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 148,
+        "net": "us",
+        "code": "7000rlw1",
+        "ids": ",ak2026aaocpk,us7000rlw1,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,",
+        "nst": 29,
+        "dmin": 0.471,
+        "rms": 0.58,
+        "gap": 80,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.1 - 115 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1439,
+          60.562,
+          5
+        ]
+      },
+      "id": "us7000rlw1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "110 km NNW of Yakutat, Alaska",
+        "time": 1767251310708,
+        "updated": 1769330754040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlun",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlun&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 158,
+        "net": "us",
+        "code": "7000rlun",
+        "ids": ",us7000rlun,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 28,
+        "dmin": 0.421,
+        "rms": 0.64,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.2 - 110 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1761,
+          60.5134,
+          5.811
+        ]
+      },
+      "id": "us7000rlun"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.1,
+        "place": "108 km N of Yakutat, Alaska",
+        "time": 1767251414226,
+        "updated": 1769331044040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlw3",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlw3&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 148,
+        "net": "us",
+        "code": "7000rlw3",
+        "ids": ",ak2026aaogss,us7000rlw3,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,",
+        "nst": 26,
+        "dmin": 0.433,
+        "rms": 0.73,
+        "gap": 80,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.1 - 108 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0179,
+          60.5115,
+          5
+        ]
+      },
+      "id": "us7000rlw3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "109 km N of Yakutat, Alaska",
+        "time": 1767251502620,
+        "updated": 1769331214040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlw4",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlw4&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.085,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 158,
+        "net": "us",
+        "code": "7000rlw4",
+        "ids": ",ak2026aaoiat,us7000rlw4,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 33,
+        "dmin": 0.428,
+        "rms": 0.55,
+        "gap": 58,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.2 - 109 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0585,
+          60.5117,
+          5
+        ]
+      },
+      "id": "us7000rlw4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.3,
+        "place": "110 km NNW of Yakutat, Alaska",
+        "time": 1767251820148,
+        "updated": 1769331790040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlur",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlur&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 3.829,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 168,
+        "net": "us",
+        "code": "7000rlur",
+        "ids": ",ak2026aaomcj,us7000rlur,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 36,
+        "dmin": 0.414,
+        "rms": 0.88,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.3 - 110 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.225,
+          60.5088,
+          5
+        ]
+      },
+      "id": "us7000rlur"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.8,
+        "place": "106 km NNW of Yakutat, Alaska",
+        "time": 1767252196982,
+        "updated": 1773305493040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlw6",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlw6&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 121,
+        "net": "us",
+        "code": "7000rlw6",
+        "ids": ",ak2026aaosag,us7000rlw6,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,",
+        "nst": 22,
+        "dmin": 0.382,
+        "rms": 0.72,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.8 - 106 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.2057,
+          60.4759,
+          5
+        ]
+      },
+      "id": "us7000rlw6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.5,
+        "place": "111 km N of Yakutat, Alaska",
+        "time": 1767252302069,
+        "updated": 1769332979756,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlut",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlut&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.151,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 188,
+        "net": "us",
+        "code": "7000rlut",
+        "ids": ",ak2026aaotev,us7000rlut,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 37,
+        "dmin": 0.442,
+        "rms": 0.64,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.5 - 111 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0943,
+          60.5299,
+          5
+        ]
+      },
+      "id": "us7000rlut"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.3,
+        "place": "214 km N of Kilmia, Yemen",
+        "time": 1767252578399,
+        "updated": 1769333226040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrda",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrda&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 284,
+        "net": "us",
+        "code": "7000rrda",
+        "ids": ",us7000rrda,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 20,
+        "dmin": 9.304,
+        "rms": 0.45,
+        "gap": 91,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.3 - 214 km N of Kilmia, Yemen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.0177,
+          14.1096,
+          10
+        ]
+      },
+      "id": "us7000rrda"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.3,
+        "place": "108 km N of Yakutat, Alaska",
+        "time": 1767253006423,
+        "updated": 1769334374040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rluv",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rluv&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.262,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 168,
+        "net": "us",
+        "code": "7000rluv",
+        "ids": ",ak2026aapdpp,us7000rluv,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 39,
+        "dmin": 0.433,
+        "rms": 0.87,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.3 - 108 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0268,
+          60.5124,
+          5
+        ]
+      },
+      "id": "us7000rluv"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3,
+        "place": "109 km NNW of Yakutat, Alaska",
+        "time": 1767253956182,
+        "updated": 1769334504040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rluw",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rluw&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 138,
+        "net": "us",
+        "code": "7000rluw",
+        "ids": ",us7000rluw,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 29,
+        "dmin": 0.421,
+        "rms": 0.69,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.0 - 109 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1392,
+          60.5116,
+          5
+        ]
+      },
+      "id": "us7000rluw"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "107 km N of Yakutat, Alaska",
+        "time": 1767254077948,
+        "updated": 1769334832040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlux",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlux&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.052,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 158,
+        "net": "us",
+        "code": "7000rlux",
+        "ids": ",ak2026aapszg,us7000rlux,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 42,
+        "dmin": 0.406,
+        "rms": 0.93,
+        "gap": 112,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.2 - 107 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.081,
+          60.4914,
+          5
+        ]
+      },
+      "id": "us7000rlux"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.6,
+        "place": "113 km NNW of Yakutat, Alaska",
+        "time": 1767255318448,
+        "updated": 1769335487040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlv0",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlv0&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 104,
+        "net": "us",
+        "code": "7000rlv0",
+        "ids": ",us7000rlv0,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 19,
+        "dmin": 0.411,
+        "rms": 0.7,
+        "gap": 85,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.6 - 113 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.513,
+          60.4846,
+          5
+        ]
+      },
+      "id": "us7000rlv0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "110 km NNW of Yakutat, Alaska",
+        "time": 1767255453303,
+        "updated": 1769335785040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlv2",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlv2&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rlv2",
+        "ids": ",us7000rlv2,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 26,
+        "dmin": 0.411,
+        "rms": 0.64,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 110 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.2211,
+          60.5053,
+          5
+        ]
+      },
+      "id": "us7000rlv2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3,
+        "place": "113 km NNW of Yakutat, Alaska",
+        "time": 1767255968677,
+        "updated": 1769336222040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlv3",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlv3&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.136,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 138,
+        "net": "us",
+        "code": "7000rlv3",
+        "ids": ",us7000rlv3,ak2026aaquds,",
+        "sources": ",us,ak,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 28,
+        "dmin": 0.439,
+        "rms": 0.97,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.0 - 113 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.2688,
+          60.5334,
+          5
+        ]
+      },
+      "id": "us7000rlv3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.41,
+        "place": "103 km NNW of San Antonio, Puerto Rico",
+        "time": 1767256292890,
+        "updated": 1769336377040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/pr71503548",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=pr71503548&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 179,
+        "net": "pr",
+        "code": "71503548",
+        "ids": ",us7000rlv5,pr71503548,",
+        "sources": ",us,pr,",
+        "types": ",origin,phase-data,",
+        "nst": 21,
+        "dmin": 0.9539,
+        "rms": 0.47,
+        "gap": 200,
+        "magType": "md",
+        "type": "earthquake",
+        "title": "M 3.4 - 103 km NNW of San Antonio, Puerto Rico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.3883333333333,
+          19.3895,
+          54.54
+        ]
+      },
+      "id": "pr71503548"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "100 km N of Yakutat, Alaska",
+        "time": 1767256997691,
+        "updated": 1769336448040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlv6",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlv6&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rlv6",
+        "ids": ",us7000rlv6,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 24,
+        "dmin": 0.374,
+        "rms": 0.49,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 100 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.9831,
+          60.4436,
+          5
+        ]
+      },
+      "id": "us7000rlv6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3,
+        "place": "111 km NNW of Yakutat, Alaska",
+        "time": 1767257304589,
+        "updated": 1769336528040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlv8",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlv8&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 138,
+        "net": "us",
+        "code": "7000rlv8",
+        "ids": ",us7000rlv8,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 22,
+        "dmin": 0.434,
+        "rms": 0.62,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.0 - 111 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1371,
+          60.525,
+          6.888
+        ]
+      },
+      "id": "us7000rlv8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.4,
+        "place": "121 km WNW of Höfn, Iceland",
+        "time": 1767257549645,
+        "updated": 1769336833040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvd",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvd&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 298,
+        "net": "us",
+        "code": "7000rlvd",
+        "ids": ",us7000rlvd,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 38,
+        "dmin": 1.606,
+        "rms": 0.59,
+        "gap": 107,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.4 - 121 km WNW of Höfn, Iceland"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -17.623,
+          64.5562,
+          10
+        ]
+      },
+      "id": "us7000rlvd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.6,
+        "place": "109 km NNW of Yakutat, Alaska",
+        "time": 1767257684047,
+        "updated": 1769336972040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlva",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlva&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 104,
+        "net": "us",
+        "code": "7000rlva",
+        "ids": ",us7000rlva,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 21,
+        "dmin": 0.407,
+        "rms": 0.43,
+        "gap": 117,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.6 - 109 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.2133,
+          60.5014,
+          5
+        ]
+      },
+      "id": "us7000rlva"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.5,
+        "place": "107 km NNW of Yakutat, Alaska",
+        "time": 1767258110724,
+        "updated": 1767267613273,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ak2026aaryxr",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=ak2026aaryxr&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 96,
+        "net": "ak",
+        "code": "2026aaryxr",
+        "ids": ",ak2026aaryxr,",
+        "sources": ",ak,",
+        "types": ",origin,phase-data,",
+        "nst": 29,
+        "dmin": 0.4,
+        "rms": 1,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.5 - 107 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.157,
+          60.488,
+          5
+        ]
+      },
+      "id": "ak2026aaryxr"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "108 km NNW of Yakutat, Alaska",
+        "time": 1767258308312,
+        "updated": 1769611362040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvc",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvc&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rlvc",
+        "ids": ",us7000rlvc,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 27,
+        "dmin": 0.408,
+        "rms": 0.55,
+        "gap": 75,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 108 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1514,
+          60.4991,
+          5
+        ]
+      },
+      "id": "us7000rlvc"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.3,
+        "place": "185 km SSE of Vilyuchinsk, Russia",
+        "time": 1767261078340,
+        "updated": 1772206390040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdr",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdr&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 284,
+        "net": "us",
+        "code": "7000rrdr",
+        "ids": ",us7000rrdr,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 23,
+        "dmin": 2.048,
+        "rms": 1.24,
+        "gap": 127,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.3 - 185 km SSE of Vilyuchinsk, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159.6481,
+          51.4489,
+          10
+        ]
+      },
+      "id": "us7000rrdr"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.8,
+        "place": "112 km NNW of Yakutat, Alaska",
+        "time": 1767261274494,
+        "updated": 1769611803040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvh",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvh&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 121,
+        "net": "us",
+        "code": "7000rlvh",
+        "ids": ",us7000rlvh,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 25,
+        "dmin": 0.441,
+        "rms": 0.62,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.8 - 112 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1819,
+          60.5341,
+          5
+        ]
+      },
+      "id": "us7000rlvh"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.87,
+        "place": "2 km SSE of Magas Arriba, Puerto Rico",
+        "time": 1767261769580,
+        "updated": 1767263561770,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/pr71503568",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=pr71503568&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 127,
+        "net": "pr",
+        "code": "71503568",
+        "ids": ",pr71503568,",
+        "sources": ",pr,",
+        "types": ",origin,phase-data,",
+        "nst": 17,
+        "dmin": 0.113,
+        "rms": 0.25,
+        "gap": 142,
+        "magType": "md",
+        "type": "earthquake",
+        "title": "M 2.9 - 2 km SSE of Magas Arriba, Puerto Rico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7635,
+          18.0001666666667,
+          13.28
+        ]
+      },
+      "id": "pr71503568"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.2,
+        "place": "180 km SSE of Vilyuchinsk, Russia",
+        "time": 1767261849666,
+        "updated": 1772202132040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdi",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdi&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 271,
+        "net": "us",
+        "code": "7000rrdi",
+        "ids": ",us7000rrdi,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 21,
+        "dmin": 1.984,
+        "rms": 0.4,
+        "gap": 138,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.2 - 180 km SSE of Vilyuchinsk, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159.4129,
+          51.4301,
+          58.854
+        ]
+      },
+      "id": "us7000rrdi"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.5,
+        "place": "34 km SW of Nanwalek, Alaska",
+        "time": 1767262021304,
+        "updated": 1769594069040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ak2026aaudbq",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=ak2026aaudbq&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 96,
+        "net": "ak",
+        "code": "2026aaudbq",
+        "ids": ",us7000rlvi,ak2026aaudbq,",
+        "sources": ",us,ak,",
+        "types": ",origin,phase-data,",
+        "nst": 69,
+        "dmin": 0.5,
+        "rms": 0.7,
+        "gap": 104,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.5 - 34 km SW of Nanwalek, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -152.414,
+          59.178,
+          54
+        ]
+      },
+      "id": "ak2026aaudbq"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.8,
+        "place": "110 km N of Yakutat, Alaska",
+        "time": 1767262077642,
+        "updated": 1770040109040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvj",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvj&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 121,
+        "net": "us",
+        "code": "7000rlvj",
+        "ids": ",us7000rlvj,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 24,
+        "dmin": 0.463,
+        "rms": 0.91,
+        "gap": 97,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.8 - 110 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.968,
+          60.5352,
+          5
+        ]
+      },
+      "id": "us7000rlvj"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.1,
+        "place": "9 km ESE of Bāsawul, Afghanistan",
+        "time": 1767262564997,
+        "updated": 1770018587040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdh",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdh&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 259,
+        "net": "us",
+        "code": "7000rrdh",
+        "ids": ",us7000rrdh,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 35,
+        "dmin": 4.664,
+        "rms": 1.27,
+        "gap": 226,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.1 - 9 km ESE of Bāsawul, Afghanistan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.9642,
+          34.2167,
+          10
+        ]
+      },
+      "id": "us7000rrdh"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "114 km NNW of Yakutat, Alaska",
+        "time": 1767262854716,
+        "updated": 1769612104040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvn",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvn&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlvn",
+        "ids": ",us7000rlvn,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 20,
+        "dmin": 0.441,
+        "rms": 0.98,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 114 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.3247,
+          60.5344,
+          5
+        ]
+      },
+      "id": "us7000rlvn"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.8,
+        "place": "16 km NNW of Whites City, New Mexico",
+        "time": 1767263789906,
+        "updated": 1774006449040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvt",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvt&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 121,
+        "net": "us",
+        "code": "7000rlvt",
+        "ids": ",us7000rlvt,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 44,
+        "dmin": 0.509,
+        "rms": 0.5,
+        "gap": 50,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.8 - 16 km NNW of Whites City, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.4596,
+          32.3016,
+          9.026
+        ]
+      },
+      "id": "us7000rlvt"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5,
+        "place": "26 km ENE of Kinablangan, Philippines",
+        "time": 1767264373510,
+        "updated": 1769594653498,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlvw",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlvw&format=geojson",
+        "felt": 5,
+        "cdi": 3.8,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 387,
+        "net": "us",
+        "code": "7000rlvw",
+        "ids": ",us7000rlvw,",
+        "sources": ",us,",
+        "types": ",dyfi,origin,phase-data,",
+        "nst": 87,
+        "dmin": 1.37,
+        "rms": 0.95,
+        "gap": 43,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 5.0 - 26 km ENE of Kinablangan, Philippines"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.7833,
+          7.7463,
+          57.731
+        ]
+      },
+      "id": "us7000rlvw"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.42,
+        "place": "81 km NNW of San Antonio, Puerto Rico",
+        "time": 1767265656690,
+        "updated": 1767266765200,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/pr71503598",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=pr71503598&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 180,
+        "net": "pr",
+        "code": "71503598",
+        "ids": ",pr71503598,",
+        "sources": ",pr,",
+        "types": ",origin,phase-data,",
+        "nst": 17,
+        "dmin": 0.7534,
+        "rms": 0.23,
+        "gap": 233,
+        "magType": "md",
+        "type": "earthquake",
+        "title": "M 3.4 - 81 km NNW of San Antonio, Puerto Rico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -67.3828333333333,
+          19.1793333333333,
+          23.81
+        ]
+      },
+      "id": "pr71503598"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "114 km N of Yakutat, Alaska",
+        "time": 1767266157074,
+        "updated": 1769594765040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlw5",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlw5&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rlw5",
+        "ids": ",ak2026aawkmb,us7000rlw5,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,",
+        "nst": 29,
+        "dmin": 0.462,
+        "rms": 1.04,
+        "gap": 64,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 114 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.118,
+          60.5517,
+          5
+        ]
+      },
+      "id": "us7000rlw5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.1,
+        "place": "198 km SSE of Perryville, Alaska",
+        "time": 1767266306139,
+        "updated": 1769595487040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlwi",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlwi&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 1,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 148,
+        "net": "us",
+        "code": "7000rlwi",
+        "ids": ",ak2026aawnbf,us7000rlwi,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 16,
+        "dmin": 1.941,
+        "rms": 0.43,
+        "gap": 232,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.1 - 198 km SSE of Perryville, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.7518,
+          54.3191,
+          10
+        ]
+      },
+      "id": "us7000rlwi"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.5,
+        "place": "114 km N of Yakutat, Alaska",
+        "time": 1767267356726,
+        "updated": 1769699247040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlwb",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlwb&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 96,
+        "net": "us",
+        "code": "7000rlwb",
+        "ids": ",us7000rlwb,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 20,
+        "dmin": 0.493,
+        "rms": 1.21,
+        "gap": 143,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.5 - 114 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.9617,
+          60.5659,
+          5
+        ]
+      },
+      "id": "us7000rlwb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4,
+        "place": "282 km NW of Ozernovskiy, Russia",
+        "time": 1767267775097,
+        "updated": 1770101313040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdl",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdl&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 246,
+        "net": "us",
+        "code": "7000rrdl",
+        "ids": ",us7000rrdl,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 59,
+        "dmin": 2.445,
+        "rms": 0.85,
+        "gap": 104,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.0 - 282 km NW of Ozernovskiy, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.6511,
+          53.3485,
+          480.466
+        ]
+      },
+      "id": "us7000rrdl"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.7,
+        "place": "107 km N of Yakutat, Alaska",
+        "time": 1767268836566,
+        "updated": 1769596161552,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlwk",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlwk&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.033,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 211,
+        "net": "us",
+        "code": "7000rlwk",
+        "ids": ",ak2026aaxvjl,us7000rlwk,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 40,
+        "dmin": 0.415,
+        "rms": 1.11,
+        "gap": 58,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.7 - 107 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0576,
+          60.4976,
+          5
+        ]
+      },
+      "id": "us7000rlwk"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4,
+        "place": "92 km E of Ust’-Kamchatsk Staryy, Russia",
+        "time": 1767269204087,
+        "updated": 1769676115040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdn",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdn&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 246,
+        "net": "us",
+        "code": "7000rrdn",
+        "ids": ",us7000rrdn,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 38,
+        "dmin": 4.717,
+        "rms": 0.83,
+        "gap": 134,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.0 - 92 km E of Ust’-Kamchatsk Staryy, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          163.9457,
+          56.1138,
+          62.335
+        ]
+      },
+      "id": "us7000rrdn"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.6,
+        "place": "26 km NE of La Villa del Rosario, Venezuela",
+        "time": 1767271026282,
+        "updated": 1772205383040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlwx",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlwx&format=geojson",
+        "felt": 1,
+        "cdi": 2,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 326,
+        "net": "us",
+        "code": "7000rlwx",
+        "ids": ",us7000rlwx,",
+        "sources": ",us,",
+        "types": ",dyfi,origin,phase-data,",
+        "nst": 40,
+        "dmin": 2.148,
+        "rms": 1.15,
+        "gap": 59,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.6 - 26 km NE of La Villa del Rosario, Venezuela"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.1167,
+          10.4676,
+          25.47
+        ]
+      },
+      "id": "us7000rlwx"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.3,
+        "place": "109 km E of Miyako, Japan",
+        "time": 1767271583890,
+        "updated": 1770042408040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdp",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdp&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 284,
+        "net": "us",
+        "code": "7000rrdp",
+        "ids": ",us7000rrdp,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 25,
+        "dmin": 1.98,
+        "rms": 0.51,
+        "gap": 139,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.3 - 109 km E of Miyako, Japan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          143.2198,
+          39.6934,
+          44.371
+        ]
+      },
+      "id": "us7000rrdp"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.7,
+        "place": "116 km N of Yakutat, Alaska",
+        "time": 1767271935835,
+        "updated": 1769596708116,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlwz",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlwz&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 4.295,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 211,
+        "net": "us",
+        "code": "7000rlwz",
+        "ids": ",ak2026aazpmf,us7000rlwz,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 41,
+        "dmin": 0.512,
+        "rms": 1.25,
+        "gap": 55,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.7 - 116 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.9587,
+          60.5848,
+          5
+        ]
+      },
+      "id": "us7000rlwz"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.4,
+        "place": "Rat Islands, Aleutian Islands, Alaska",
+        "time": 1767272472757,
+        "updated": 1769787714040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzc",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzc&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 178,
+        "net": "us",
+        "code": "7000rlzc",
+        "ids": ",ak2026aaztfy,us7000rlzc,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,",
+        "nst": 23,
+        "dmin": 0.113,
+        "rms": 0.74,
+        "gap": 158,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.4 - Rat Islands, Aleutian Islands, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          178.4936,
+          51.8289,
+          98.013
+        ]
+      },
+      "id": "us7000rlzc"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "100 km N of Yakutat, Alaska",
+        "time": 1767272722027,
+        "updated": 1772299218040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlx4",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlx4&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlx4",
+        "ids": ",us7000rlx4,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 24,
+        "dmin": 0.391,
+        "rms": 0.56,
+        "gap": 122,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 100 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.9028,
+          60.4443,
+          5
+        ]
+      },
+      "id": "us7000rlx4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "108 km N of Yakutat, Alaska",
+        "time": 1767273000288,
+        "updated": 1769787758040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlx5",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlx5&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rlx5",
+        "ids": ",us7000rlx5,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 28,
+        "dmin": 0.438,
+        "rms": 1.04,
+        "gap": 122,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 108 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.9754,
+          60.5099,
+          5
+        ]
+      },
+      "id": "us7000rlx5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5,
+        "place": "33 km NE of Shwebo, Burma (Myanmar)",
+        "time": 1767273539369,
+        "updated": 1769787949223,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlx8",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlx8&format=geojson",
+        "felt": 2,
+        "cdi": 3.4,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 385,
+        "net": "us",
+        "code": "7000rlx8",
+        "ids": ",us7000rlx8,",
+        "sources": ",us,",
+        "types": ",dyfi,origin,phase-data,",
+        "nst": 70,
+        "dmin": 1.84,
+        "rms": 0.76,
+        "gap": 52,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 5.0 - 33 km NE of Shwebo, Burma (Myanmar)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          95.9011,
+          22.8108,
+          10
+        ]
+      },
+      "id": "us7000rlx8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4,
+        "place": "17 km ESE of Lota, Chile",
+        "time": 1767273940156,
+        "updated": 1772299047040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlx9",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlx9&format=geojson",
+        "felt": 1,
+        "cdi": 3.1,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 246,
+        "net": "us",
+        "code": "7000rlx9",
+        "ids": ",us7000rlx9,",
+        "sources": ",us,",
+        "types": ",dyfi,moment-tensor,origin,phase-data,",
+        "nst": 29,
+        "dmin": 1.843,
+        "rms": 0.55,
+        "gap": 144,
+        "magType": "mwr",
+        "type": "earthquake",
+        "title": "M 4.0 - 17 km ESE of Lota, Chile"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -72.962,
+          -37.1241,
+          42.135
+        ]
+      },
+      "id": "us7000rlx9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.99,
+        "place": "27 km NNE of Miches, Dominican Republic",
+        "time": 1767274534520,
+        "updated": 1769788178040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/pr2026001000",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=pr2026001000&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 245,
+        "net": "pr",
+        "code": "2026001000",
+        "ids": ",us7000rlxb,pr2026001000,",
+        "sources": ",us,pr,",
+        "types": ",origin,phase-data,",
+        "nst": 24,
+        "dmin": 0.9033,
+        "rms": 0.7,
+        "gap": 189,
+        "magType": "md",
+        "type": "earthquake",
+        "title": "M 4.0 - 27 km NNE of Miches, Dominican Republic"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.9508,
+          19.2151,
+          37
+        ]
+      },
+      "id": "pr2026001000"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "111 km N of Yakutat, Alaska",
+        "time": 1767274680700,
+        "updated": 1772299004040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxc",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxc&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlxc",
+        "ids": ",us7000rlxc,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 24,
+        "dmin": 0.493,
+        "rms": 1.07,
+        "gap": 81,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 111 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.868,
+          60.549,
+          5
+        ]
+      },
+      "id": "us7000rlxc"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.7,
+        "place": "194 km NW of Qalansīyah, Yemen",
+        "time": 1767276170757,
+        "updated": 1772298872040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxk",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxk&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 340,
+        "net": "us",
+        "code": "7000rlxk",
+        "ids": ",us7000rlxk,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 46,
+        "dmin": 7.671,
+        "rms": 0.7,
+        "gap": 70,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.7 - 194 km NW of Qalansīyah, Yemen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.279,
+          13.994,
+          10
+        ]
+      },
+      "id": "us7000rlxk"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "102 km N of Yakutat, Alaska",
+        "time": 1767276473066,
+        "updated": 1772298650040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxf",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxf&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlxf",
+        "ids": ",us7000rlxf,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 23,
+        "dmin": 0.45,
+        "rms": 0.55,
+        "gap": 88,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 102 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.7304,
+          60.4625,
+          5
+        ]
+      },
+      "id": "us7000rlxf"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.5,
+        "place": "48 km W of Karluk, Alaska",
+        "time": 1767276753256,
+        "updated": 1767276926994,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ak2026abcfae",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=ak2026abcfae&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 96,
+        "net": "ak",
+        "code": "2026abcfae",
+        "ids": ",ak2026abcfae,",
+        "sources": ",ak,",
+        "types": ",origin,phase-data,",
+        "nst": 61,
+        "dmin": 0.4,
+        "rms": 0.6,
+        "gap": 127,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.5 - 48 km W of Karluk, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -155.27,
+          57.614,
+          68.2
+        ]
+      },
+      "id": "ak2026abcfae"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.7,
+        "place": "223 km N of Kilmia, Yemen",
+        "time": 1767276998715,
+        "updated": 1769789914040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzs",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzs&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 340,
+        "net": "us",
+        "code": "7000rlzs",
+        "ids": ",us7000rlzs,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 44,
+        "dmin": 7.299,
+        "rms": 0.7,
+        "gap": 133,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.7 - 223 km N of Kilmia, Yemen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.9094,
+          14.1802,
+          10
+        ]
+      },
+      "id": "us7000rlzs"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.4,
+        "place": "136 km SSE of Vilyuchinsk, Russia",
+        "time": 1767280598289,
+        "updated": 1772298439040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxt",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxt&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 298,
+        "net": "us",
+        "code": "7000rlxt",
+        "ids": ",us7000rlxt,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 35,
+        "dmin": 1.63,
+        "rms": 1.38,
+        "gap": 131,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.4 - 136 km SSE of Vilyuchinsk, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159.4502,
+          51.8815,
+          82.215
+        ]
+      },
+      "id": "us7000rlxt"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.6,
+        "place": "72 km ESE of Lakatoro, Vanuatu",
+        "time": 1767281425540,
+        "updated": 1769790719040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrds",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrds&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 326,
+        "net": "us",
+        "code": "7000rrds",
+        "ids": ",us7000rrds,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 31,
+        "dmin": 1.152,
+        "rms": 0.93,
+        "gap": 189,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.6 - 72 km ESE of Lakatoro, Vanuatu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          168.0771,
+          -16.2386,
+          185.005
+        ]
+      },
+      "id": "us7000rrds"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "110 km N of Yakutat, Alaska",
+        "time": 1767281649753,
+        "updated": 1769791917040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxu",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxu&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlxu",
+        "ids": ",us7000rlxu,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 18,
+        "dmin": 0.439,
+        "rms": 0.73,
+        "gap": 187,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 110 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0721,
+          60.5239,
+          5
+        ]
+      },
+      "id": "us7000rlxu"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "112 km N of Yakutat, Alaska",
+        "time": 1767282527382,
+        "updated": 1772298086040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxv",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxv&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 158,
+        "net": "us",
+        "code": "7000rlxv",
+        "ids": ",us7000rlxv,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 34,
+        "dmin": 0.459,
+        "rms": 0.59,
+        "gap": 132,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.2 - 112 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0715,
+          60.544,
+          5
+        ]
+      },
+      "id": "us7000rlxv"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.2,
+        "place": "13 km SW of Wassamu, Japan",
+        "time": 1767282970776,
+        "updated": 1769792308040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxx",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxx&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 271,
+        "net": "us",
+        "code": "7000rlxx",
+        "ids": ",us7000rlxx,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 53,
+        "dmin": 0.277,
+        "rms": 0.82,
+        "gap": 111,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.2 - 13 km SW of Wassamu, Japan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          142.2978,
+          43.9415,
+          190.084
+        ]
+      },
+      "id": "us7000rlxx"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "101 km N of Yakutat, Alaska",
+        "time": 1767282998654,
+        "updated": 1769793428040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlxw",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlxw&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlxw",
+        "ids": ",us7000rlxw,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 24,
+        "dmin": 0.385,
+        "rms": 0.67,
+        "gap": 118,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 101 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.9731,
+          60.4541,
+          5
+        ]
+      },
+      "id": "us7000rlxw"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3,
+        "place": "15 km SSW of Larsen Bay, Alaska",
+        "time": 1767283747261,
+        "updated": 1769793639040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ak2026abgdbz",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=ak2026abgdbz&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 138,
+        "net": "ak",
+        "code": "2026abgdbz",
+        "ids": ",us7000rly0,ak2026abgdbz,",
+        "sources": ",us,ak,",
+        "types": ",origin,phase-data,",
+        "nst": 52,
+        "dmin": 0.5,
+        "rms": 0.6,
+        "gap": 93,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.0 - 15 km SSW of Larsen Bay, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -154.113,
+          57.424,
+          49.3
+        ]
+      },
+      "id": "ak2026abgdbz"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.1,
+        "place": "17 km E of Yaguaraparo, Venezuela",
+        "time": 1767283866020,
+        "updated": 1773600345040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdt",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdt&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 259,
+        "net": "us",
+        "code": "7000rrdt",
+        "ids": ",us7000rrdt,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 21,
+        "dmin": 4.439,
+        "rms": 0.71,
+        "gap": 172,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.1 - 17 km E of Yaguaraparo, Venezuela"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -62.6707,
+          10.5874,
+          29.894
+        ]
+      },
+      "id": "us7000rrdt"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.5,
+        "place": "135 km E of Ust’-Kamchatsk Staryy, Russia",
+        "time": 1767284488336,
+        "updated": 1769804182040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdv",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdv&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 312,
+        "net": "us",
+        "code": "7000rrdv",
+        "ids": ",us7000rrdv,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 21,
+        "dmin": 5.068,
+        "rms": 0.46,
+        "gap": 115,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.5 - 135 km E of Ust’-Kamchatsk Staryy, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          164.6588,
+          56.1601,
+          37.782
+        ]
+      },
+      "id": "us7000rrdv"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3,
+        "place": "112 km N of Yakutat, Alaska",
+        "time": 1767285605656,
+        "updated": 1769804256040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rly8",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rly8&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 138,
+        "net": "us",
+        "code": "7000rly8",
+        "ids": ",us7000rly8,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 27,
+        "dmin": 0.526,
+        "rms": 0.45,
+        "gap": 123,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.0 - 112 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -139.74,
+          60.5547,
+          5
+        ]
+      },
+      "id": "us7000rly8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.2,
+        "place": "122 km ESE of Ozernovskiy, Russia",
+        "time": 1767286220975,
+        "updated": 1769804468040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rrdw",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rrdw&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 271,
+        "net": "us",
+        "code": "7000rrdw",
+        "ids": ",us7000rrdw,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 39,
+        "dmin": 2.06,
+        "rms": 0.66,
+        "gap": 127,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.2 - 122 km ESE of Ozernovskiy, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          158.1111,
+          51.0674,
+          56.272
+        ]
+      },
+      "id": "us7000rrdw"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "105 km N of Yakutat, Alaska",
+        "time": 1767287302538,
+        "updated": 1771864625040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlya",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlya&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlya",
+        "ids": ",us7000rlya,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 32,
+        "dmin": 0.393,
+        "rms": 0.61,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 105 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0635,
+          60.4758,
+          5
+        ]
+      },
+      "id": "us7000rlya"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.7,
+        "place": "247 km NE of Xilin Hot, China",
+        "time": 1767295615657,
+        "updated": 1769278594040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlz4",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlz4&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 340,
+        "net": "us",
+        "code": "7000rlz4",
+        "ids": ",us7000rlz4,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 69,
+        "dmin": 3.981,
+        "rms": 0.61,
+        "gap": 63,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.7 - 247 km NE of Xilin Hot, China"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          118.4334,
+          45.3919,
+          9.401
+        ]
+      },
+      "id": "us7000rlz4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "100 km N of Yakutat, Alaska",
+        "time": 1767295676691,
+        "updated": 1771864781040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlyx",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlyx&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "us",
+        "code": "7000rlyx",
+        "ids": ",us7000rlyx,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 39,
+        "dmin": 0.348,
+        "rms": 0.66,
+        "gap": 74,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 100 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0621,
+          60.4299,
+          5
+        ]
+      },
+      "id": "us7000rlyx"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.4,
+        "place": "86 km NW of Tobelo, Indonesia",
+        "time": 1767296110165,
+        "updated": 1769278175040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlyz",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlyz&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 298,
+        "net": "us",
+        "code": "7000rlyz",
+        "ids": ",us7000rlyz,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 73,
+        "dmin": 3.148,
+        "rms": 0.74,
+        "gap": 74,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.4 - 86 km NW of Tobelo, Indonesia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.4086,
+          2.2262,
+          106.385
+        ]
+      },
+      "id": "us7000rlyz"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.7,
+        "place": "57 km S of Whites City, New Mexico",
+        "time": 1767297162759,
+        "updated": 1769278430040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/tx2026abnntd",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=tx2026abnntd&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 112,
+        "net": "tx",
+        "code": "2026abnntd",
+        "ids": ",us7000rlz0,tx2026abnntd,",
+        "sources": ",us,tx,",
+        "types": ",origin,phase-data,",
+        "nst": 32,
+        "dmin": 0,
+        "rms": 0.1,
+        "gap": 57,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.7 - 57 km S of Whites City, New Mexico"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.39,
+          31.66,
+          5.177
+        ]
+      },
+      "id": "tx2026abnntd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.5,
+        "place": "108 km NNW of Yakutat, Alaska",
+        "time": 1767298084155,
+        "updated": 1771864867040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlz6",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlz6&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 96,
+        "net": "us",
+        "code": "7000rlz6",
+        "ids": ",us7000rlz6,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 28,
+        "dmin": 0.408,
+        "rms": 0.69,
+        "gap": 104,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.5 - 108 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1357,
+          60.4987,
+          5
+        ]
+      },
+      "id": "us7000rlz6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.5,
+        "place": "166 km SSE of Vilyuchinsk, Russia",
+        "time": 1767298166540,
+        "updated": 1769279088040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlz9",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlz9&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 312,
+        "net": "us",
+        "code": "7000rlz9",
+        "ids": ",us7000rlz9,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 67,
+        "dmin": 1.518,
+        "rms": 0.86,
+        "gap": 135,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.5 - 166 km SSE of Vilyuchinsk, Russia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          159.5277,
+          51.607,
+          35
+        ]
+      },
+      "id": "us7000rlz9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.8,
+        "place": "109 km NNW of Yakutat, Alaska",
+        "time": 1767300541045,
+        "updated": 1771864937040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzh",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzh&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 121,
+        "net": "us",
+        "code": "7000rlzh",
+        "ids": ",us7000rlzh,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 32,
+        "dmin": 0.413,
+        "rms": 0.46,
+        "gap": 78,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.8 - 109 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.182,
+          60.5061,
+          5
+        ]
+      },
+      "id": "us7000rlzh"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.6,
+        "place": "112 km N of Yakutat, Alaska",
+        "time": 1767301644000,
+        "updated": 1769399600040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzj",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzj&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 104,
+        "net": "us",
+        "code": "7000rlzj",
+        "ids": ",us7000rlzj,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 22,
+        "dmin": 0.445,
+        "rms": 0.74,
+        "gap": 120,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.6 - 112 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1112,
+          60.5337,
+          1.396
+        ]
+      },
+      "id": "us7000rlzj"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5.2,
+        "place": "111 km SSE of Port-Vila, Vanuatu",
+        "time": 1767303302491,
+        "updated": 1769403617040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzn",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzn&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 416,
+        "net": "us",
+        "code": "7000rlzn",
+        "ids": ",us7000rlzn,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 42,
+        "dmin": 3.514,
+        "rms": 0.92,
+        "gap": 79,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 5.2 - 111 km SSE of Port-Vila, Vanuatu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          168.6565,
+          -18.6924,
+          139.06
+        ]
+      },
+      "id": "us7000rlzn"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "102 km N of Yakutat, Alaska",
+        "time": 1767304103846,
+        "updated": 1769403798040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzq",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzq&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rlzq",
+        "ids": ",us7000rlzq,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 26,
+        "dmin": 0.375,
+        "rms": 0.48,
+        "gap": 115,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 102 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0177,
+          60.451,
+          5
+        ]
+      },
+      "id": "us7000rlzq"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.5,
+        "place": "110 km NNW of Yakutat, Alaska",
+        "time": 1767304736756,
+        "updated": 1771887925040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzr",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzr&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 96,
+        "net": "us",
+        "code": "7000rlzr",
+        "ids": ",us7000rlzr,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 21,
+        "dmin": 0.422,
+        "rms": 0.67,
+        "gap": 79,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.5 - 110 km NNW of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.1389,
+          60.513,
+          4.1
+        ]
+      },
+      "id": "us7000rlzr"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.5,
+        "place": "278 km N of Saipan, Northern Mariana Islands",
+        "time": 1767305584383,
+        "updated": 1769998052040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rre0",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rre0&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 312,
+        "net": "us",
+        "code": "7000rre0",
+        "ids": ",us7000rre0,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 48,
+        "dmin": 2.471,
+        "rms": 0.83,
+        "gap": 83,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.5 - 278 km N of Saipan, Northern Mariana Islands"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          145.9978,
+          17.7176,
+          120.325
+        ]
+      },
+      "id": "us7000rre0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.7,
+        "place": "57 km SSW of Ollagüe, Chile",
+        "time": 1767307786878,
+        "updated": 1769407550040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzy",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzy&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 340,
+        "net": "us",
+        "code": "7000rlzy",
+        "ids": ",us7000rlzy,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 45,
+        "dmin": 0.694,
+        "rms": 1.02,
+        "gap": 40,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.7 - 57 km SSW of Ollagüe, Chile"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.5036,
+          -21.6906,
+          131.526
+        ]
+      },
+      "id": "us7000rlzy"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "113 km N of Yakutat, Alaska",
+        "time": 1767308071923,
+        "updated": 1769405240040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rlzz",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rlzz&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 3.795,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 158,
+        "net": "us",
+        "code": "7000rlzz",
+        "ids": ",ak2026abtolo,us7000rlzz,",
+        "sources": ",ak,us,",
+        "types": ",origin,phase-data,shakemap,",
+        "nst": 31,
+        "dmin": 0.474,
+        "rms": 1.03,
+        "gap": 115,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.2 - 113 km N of Yakutat, Alaska"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.0119,
+          60.5528,
+          1.11
+        ]
+      },
+      "id": "us7000rlzz"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.9,
+        "place": "189 km W of Bandon, Oregon",
+        "time": 1767308871532,
+        "updated": 1769407692040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rm02",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rm02&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 129,
+        "net": "us",
+        "code": "7000rm02",
+        "ids": ",us7000rm02,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 46,
+        "dmin": 1.98,
+        "rms": 0.55,
+        "gap": 278,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 2.9 - 189 km W of Bandon, Oregon"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -126.7186,
+          43.3587,
+          10
+        ]
+      },
+      "id": "us7000rm02"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.8,
+        "place": "133 km ESE of Yigo Village, Guam",
+        "time": 1767310038120,
+        "updated": 1770079175040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rre2",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rre2&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 354,
+        "net": "us",
+        "code": "7000rre2",
+        "ids": ",us7000rre2,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 39,
+        "dmin": 1.994,
+        "rms": 0.84,
+        "gap": 82,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.8 - 133 km ESE of Yigo Village, Guam"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          146.0834,
+          13.2479,
+          10
+        ]
+      },
+      "id": "us7000rre2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.2,
+        "place": "132 km W of San Juan, Peru",
+        "time": 1767310251522,
+        "updated": 1769407973040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000rm06",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us7000rm06&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 271,
+        "net": "us",
+        "code": "7000rm06",
+        "ids": ",us7000rm06,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 18,
+        "dmin": 3.499,
+        "rms": 0.64,
+        "gap": 172,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.2 - 132 km W of San Juan, Peru"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.3908,
+          -15.4795,
+          10
+        ]
+      },
+      "id": "us7000rm06"
+    }
+  ],
+  "bbox": [
+    -179.5301,
+    -56.177,
+    1.11,
+    178.4936,
+    64.5562,
+    480.466
+  ]
+}
