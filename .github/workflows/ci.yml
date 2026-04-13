@@ -13,13 +13,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: dev
 
     services:
       postgres:
         image: postgis/postgis:16-3.4
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: geocog-postgres
         ports:
           - 5433:5432
@@ -30,10 +31,11 @@ jobs:
           --health-retries 10
 
     env:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
-      AIRFLOW_CONN_USGS_API: http://earthquake.usgs.gov
-      AIRFLOW_CONN_GEOCOG_POSTGRES_DB: postgresql://postgres:postgres@localhost:5433/geocog-postgres
+      MINIO_ROOT_USER: ${{ vars.MINIO_ROOT_USER }}
+      MINIO_ROOT_PASSWORD: ${{ secrets.MINIO_ROOT_PASSWORD }}
+      AIRFLOW_CONN_USGS_API: ${{ vars.AIRFLOW_CONN_USGS_API }}
+      AIRFLOW_CONN_GEOCOG_POSTGRES_DB: ${{ secrets.AIRFLOW_CONN_GEOCOG_POSTGRES_DB }}
+      GEOCOG_DATABASE_URL: ${{ secrets.GEOCOG_DATABASE_URL }}
       AIRFLOW__CORE__DAGS_FOLDER: '${{ github.workspace }}/dags'
       # Prevent Airflow from loading example DAGs that require extra dependencies
       AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
@@ -62,7 +64,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install ruff black
+          pip install -r requirements-webapp.txt
 
       # ✅ Initialize Airflow DB
       - name: Initialize Airflow metadata DB
@@ -85,8 +87,8 @@ jobs:
             --name minio \
             -p 9000:9000 \
             -p 9001:9001 \
-            -e MINIO_ROOT_USER=minio \
-            -e MINIO_ROOT_PASSWORD=minio123 \
+            -e MINIO_ROOT_USER=$MINIO_ROOT_USER \
+            -e MINIO_ROOT_PASSWORD=$MINIO_ROOT_PASSWORD \
             minio/minio server /data --console-address ":9001"
 
       - name: Wait for Postgres
@@ -107,6 +109,16 @@ jobs:
           echo "MinIO did not become ready in time."
           docker logs minio || true
           exit 1
+
+      - name: Run webapp health check
+        run: |
+          uvicorn app.main:app --host 127.0.0.1 --port 8000 &
+          UVICORN_PID=$!
+          for i in {1..30}; do
+            curl -fsS http://127.0.0.1:8000/health && break
+            sleep 2
+          done
+          kill $UVICORN_PID
 
       - name: Run pytest
         run: |

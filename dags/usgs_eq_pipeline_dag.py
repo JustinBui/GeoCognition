@@ -242,8 +242,10 @@ with DAG(
         data={
             "format": "geojson",
             # Normalize to full-day window even for manual runs.
-            "starttime": "{{ data_interval_start.start_of('day').strftime('%Y-%m-%dT%H:%M:%S') }}",
-            "endtime": "{{ data_interval_start.end_of('day').strftime('%Y-%m-%dT%H:%M:%S') }}",
+            # "starttime": "{{ data_interval_start.start_of('day').strftime('%Y-%m-%dT%H:%M:%S') }}", # If on Airflow 3, DO NOT USE: https://github.com/apache/airflow/issues/52145?utm_source=chatgpt.com
+            # "endtime": "{{ data_interval_start.end_of('day').strftime('%Y-%m-%dT%H:%M:%S') }}",
+            "starttime": "{{ data_interval_start.strftime('%Y-%m-%dT%H:%M:%S') }}",
+            "endtime": "{{ data_interval_end.strftime('%Y-%m-%dT%H:%M:%S') }}",
             "minmagnitude": "2.5",
             "orderby": "time-asc",
             "limit": "20000",

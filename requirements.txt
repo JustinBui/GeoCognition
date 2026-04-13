@@ -20,3 +20,5 @@ freezegun
 pendulum
 ruff
 black
+fastapi
+uvicorn[standard]

@@ -4,8 +4,8 @@ services:
     image: postgis/postgis:16-3.4
     container_name: geocog-postgres
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: geocog-postgres
     ports:
       - "5433:5432"
@@ -18,14 +18,32 @@ services:
     image: minio/minio:latest
     container_name: geocog-minio
     environment:
-      MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: minio123
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
       - "9001:9001"
     volumes:
       - minio_data:/data
+    networks:
+      - airflow_network
+
+  webapp:
+    image: python:3.10-slim
+    container_name: geocog-webapp
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    environment:
+      GEOCOG_DATABASE_URL: ${GEOCOG_DATABASE_URL}
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements-webapp.txt &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
     networks:
       - airflow_network
 

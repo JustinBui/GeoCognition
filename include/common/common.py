@@ -70,8 +70,8 @@ def get_minio_client() -> Minio:
     Helper to create and return a MinIO client using configuration from the YAML file and environment variables.
     """
     endpoint = read_yaml(CONFIG_FILE_PATH).data_ingestion.minio_endpoint
-    access_key = os.getenv("MINIO_ACCESS_KEY", "minio")
-    secret_key = os.getenv("MINIO_SECRET_KEY", "minio123")
+    access_key = os.getenv("MINIO_ROOT_USER")
+    secret_key = os.getenv("MINIO_ROOT_PASSWORD")
 
     return Minio(
         endpoint,
