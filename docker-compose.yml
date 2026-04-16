@@ -29,9 +29,9 @@ services:
     networks:
       - airflow_network
 
-  webapp:
+  backend:
     image: python:3.10-slim
-    container_name: geocog-webapp
+    container_name: geocog-backend
     working_dir: /workspace
     volumes:
       - ./:/workspace
@@ -39,13 +39,30 @@ services:
       GEOCOG_DATABASE_URL: ${GEOCOG_DATABASE_URL}
     command: >
       sh -c "pip install --no-cache-dir -r requirements-webapp.txt &&
-      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+      uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload"
     ports:
       - "8000:8000"
     depends_on:
       - postgres
     networks:
       - airflow_network
+    stop_grace_period: 1s
+
+  frontend:
+    image: node:20-alpine
+    container_name: geocog-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - airflow_network
+    stop_grace_period: 1s
 
 networks:
   airflow_network:

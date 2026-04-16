@@ -1,99 +1,151 @@
 # GeoCognition
-Data analytics platform for earth data
 
+Data analytics platform for earth data.
 
-# Setting Up
+## Stack
 
-## Required Installations
- - Docker Desktop
- - Python
- - Astro
+- **Airflow** (via Astro CLI) — orchestrates the USGS earthquake data pipeline
+- **PostGIS** — stores earthquake data with spatial support
+- **MinIO** — object storage for raw and curated data files
+- **FastAPI** — REST API serving earthquake data
+- **React + Vite** — frontend web app
 
-Virtual environment
+---
 
-```
+# Local Setup
+
+## Requirements
+
+- Docker Desktop
+- Python 3.10
+- [Astro CLI](https://docs.astronomer.io/astro/cli/install-cli)
+- Node.js (for the frontend)
+
+## Python Environment
+
+```bash
 conda create -p venv python==3.10 -y
 conda activate venv/
 pip install -r requirements.txt
+pip install -r requirements-webapp.txt
 ```
 
-# Docker Runs (Locally)
+## Environment Variables
 
-## Environment Variables (If Running Locally):
-
-1. If you don't have one, create an `.env` file in the root directory of this project. In the file, add:
+Create a `.env` file in the project root:
 
 ```bash
-MINIO_ACCESS_KEY="minio"
-MINIO_SECRET_KEY="minio123"
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+MINIO_ROOT_USER=minio
+MINIO_ROOT_PASSWORD=minio123
+GEOCOG_DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5433/geocog-postgres
 AIRFLOW_CONN_USGS_API=http://earthquake.usgs.gov
 AIRFLOW_CONN_GEOCOG_POSTGRES_DB=postgresql://postgres:postgres@host.docker.internal:5433/geocog-postgres
 ```
 
-## Starting Program
+---
 
-Run these commands in order from the project root:
+# Running Locally
 
-1. Start data services (PostGIS + MinIO)
+## 1. Start data services + API (PostGIS, MinIO, FastAPI)
+
 ```bash
 docker compose up -d
 ```
 
-This project compose file exposes:
+Exposes:
 
-- PostGIS on `localhost:5433` (container DB name: `earthquakes`)
+- PostGIS on `localhost:5433`
 - MinIO API on `localhost:9000`
 - MinIO Console on `localhost:9001`
+- FastAPI on `localhost:8000`
 
-2. Start Airflow with Astro. Astro CLI runs Airflow in its own Docker-managed stack (webserver, scheduler, triggerer, and metadata PostGIS).
+## 2. Start Airflow
+
 ```bash
 astro dev start
 ```
 
-3. On your browser, search up `http://localhost:8080`
+Airflow UI available at `http://localhost:8080`
 
-## Stopping Program
+## 3. Start the frontend (dev mode)
 
-1. To stop Astro:
+```bash
+cd frontend
+npm install   # first time only
+npm run dev
+```
+
+Frontend available at `http://localhost:5173`
+
+---
+
+# API Endpoints
+
+Base URL: `http://localhost:8000`
+
+| Method | Endpoint                 | Description                              |
+| ------ | ------------------------ | ---------------------------------------- |
+| GET    | `/`                      | Health check                             |
+| GET    | `/health`                | Checks database connectivity             |
+| GET    | `/earthquakes/years`     | Returns list of years with data          |
+| GET    | `/earthquakes?year=2025` | Returns all earthquakes for a given year |
+
+Interactive API docs: `http://localhost:8000/docs`
+
+---
+
+# Stopping Services
+
+## Stop Airflow
+
 ```bash
 astro dev stop
 ```
 
-2. To stop PostGIS + MinIO
+## Stop Docker services
+
 ```bash
 docker compose down
 ```
 
-## Stopping Program (Deleting all data)
+## Full reset (deletes all data)
 
-Use this when you want a clean local restart.
-
-1. Stop and reset Astro containers
 ```bash
 astro dev kill
-```
-
-2. Stop and remove compose services and volumes
-```bash
 docker compose down -v
 ```
 
-3. Start again using the first-time startup steps
+---
 
-# Pushing Code
+# Before Pushing Code
 
-Before pushing code to GitHub, run the following commands
+## Python Code Checks
 
 ```bash
-# Finds problems (bugs, bad patterns, lint issues), while fixes what it can (ignore .ipynb inside of prototype/)
-ruff check . --fix --exclude prototype 
+# Lint and fix
+ruff check . --fix --exclude prototype
 
-# Fixes formatting (style only, not logic)
+# Format
 black .
 
-# Go into astro bash
+# Run tests (inside Astro bash)
 astro dev bash
+pytest
+```
 
-# Unit testing (See if all tests passed)
-pytest 
+## React Code Checks
+
+```bash
+cd frontend
+
+# Check for lint errors
+npm run lint
+
+# Check formatting
+npm run format:check
+
+# Auto-fix formatting
+npm run format
 ```
