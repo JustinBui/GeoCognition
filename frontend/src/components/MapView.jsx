@@ -16,23 +16,28 @@ const THEMES = [
   {
     label: 'Standard',
     source: () => new OSM(),
+    graticuleColor: 'rgba(0, 220, 255, 0.4)',
   },
   {
     label: 'Dark Matter',
     source: () => new XYZ({ url: 'https://{a-d}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' }),
+    graticuleColor: 'rgba(255, 0, 0, 0.4)',
   },
   {
     label: 'Positron (Light)',
     source: () => new XYZ({ url: 'https://{a-d}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png' }),
+    graticuleColor: 'rgba(136, 255, 0, 0.4)',
   },
   {
     label: 'Voyager',
     source: () =>
       new XYZ({ url: 'https://{a-d}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png' }),
+    graticuleColor: 'rgba(41, 44, 201, 0.4)',
   },
   {
     label: 'Topographic',
     source: () => new XYZ({ url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png' }),
+    graticuleColor: 'rgba(32, 221, 79, 0.4)',
   },
 ];
 
@@ -80,24 +85,9 @@ function MapView() {
   const [showFaults, setShowFaults] = useState(false);
   const [showGraticule, setShowGraticule] = useState(false);
 
-  useEffect(() => {
-    const tileLayer = new TileLayer({ source: THEMES[0].source() });
-    tileLayerRef.current = tileLayer;
-
-    const faultLayer = new VectorLayer({
-      source: new VectorSource({
-        url: FAULT_GEOJSON_URL,
-        format: new GeoJSON(),
-      }),
-      style: new Style({
-        stroke: new Stroke({ color: '#f97316', width: 1.5 }),
-      }),
-      visible: false,
-    });
-    faultLayerRef.current = faultLayer;
-
-    const graticule = new Graticule({
-      strokeStyle: new Stroke({ color: 'rgba(0,220,255,0.4)', width: 1 }),
+  const buildGraticule = (color, visible) =>
+    new Graticule({
+      strokeStyle: new Stroke({ color, width: 1 }),
       showLabels: true,
       wrapX: true,
       lonLabelStyle: new Text({
@@ -110,8 +100,26 @@ function MapView() {
         fill: new Fill({ color: '#22d3ee' }),
         stroke: new Stroke({ color: '#000', width: 2 }),
       }),
+      visible,
+    });
+
+  useEffect(() => {
+    const tileLayer = new TileLayer({ source: THEMES[0].source() });
+    tileLayerRef.current = tileLayer;
+
+    const faultLayer = new VectorLayer({
+      source: new VectorSource({
+        url: FAULT_GEOJSON_URL,
+        format: new GeoJSON(),
+      }),
+      style: new Style({
+        stroke: new Stroke({ color: '#ff0000', width: 1.5 }),
+      }),
       visible: false,
     });
+    faultLayerRef.current = faultLayer;
+
+    const graticule = buildGraticule(THEMES[0].graticuleColor, false);
     graticuleRef.current = graticule;
 
     const rotateControl = new Rotate({ autoHide: false });
@@ -137,6 +145,14 @@ function MapView() {
     const idx = Number(e.target.value);
     setSelectedTheme(idx);
     tileLayerRef.current?.setSource(THEMES[idx].source());
+
+    const map = mapInstanceRef.current;
+    if (map) {
+      map.removeLayer(graticuleRef.current);
+      const newGraticule = buildGraticule(THEMES[idx].graticuleColor, showGraticule);
+      graticuleRef.current = newGraticule;
+      map.addLayer(newGraticule);
+    }
   };
 
   const handleFaultToggle = () => {
